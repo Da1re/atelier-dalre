@@ -1,0 +1,20 @@
+import { SectionAbout } from "@/components/sections/section-about";
+import { SectionCreation } from "@/components/sections/section-creation";
+import { SectionIn } from "@/components/sections/section-in";
+import { SectionOtherProjects } from "@/components/sections/section-other-projects";
+import { SectionVisual } from "@/components/sections/section-visual";
+import { SectionWork } from "@/components/sections/section-work";
+
+export default function MainPage() {
+  return (
+    <div className="flex flex-col p-10! gap-10 w-full">
+      <SectionVisual />
+      <SectionAbout />
+      <SectionIn />
+      <SectionWork />
+      {/* <SectionProjects /> */}
+      <SectionCreation />
+      <SectionOtherProjects />
+    </div>
+  );
+}
