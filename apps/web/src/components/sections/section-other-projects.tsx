@@ -101,25 +101,22 @@ export const SectionOtherProjects = () => {
   }, []);
 
   return (
-    <section className="bg-white text-[#141412] mb-0 px-[50px] py-[50px]">
-      <div className="mb-37.5">
-        <h2 className="text-[100px] uppercase tracking-[-5px] font-normal">
-          OTHER PROJECTS
-        </h2>
-      </div>
+    <section className="bg-foreground/5 text-foreground rounded-2xl flex flex-col gap-8 md:gap-12 px-5 md:px-12.5 py-8 md:py-12.5">
+      <h2 className="uppercase font-normal tracking-[-3px] md:tracking-[-5px]" style={{ fontSize: "clamp(48px, 12vw, 100px)" }}>
+        OTHERS
+      </h2>
 
-      <ul className="other-projects-list border-t border-black">
+      <ul className="other-projects-list border-t border-foreground">
         {OTHER_PROJECTS.map((project, i) => (
           <li
             key={i}
-            className="grid border-b border-black p-2.5 cursor-none"
-            style={{ gridTemplateColumns: "2fr 1fr auto" }}
+            className="border-b border-foreground p-2.5 cursor-none flex items-center justify-between gap-3"
           >
-            <h3 className="text-[40px] tracking-[-1px] font-normal">
+            <h3 className="font-normal tracking-[-0.5px] md:tracking-[-1px]" style={{ fontSize: "clamp(22px, 6vw, 40px)" }}>
               {project.title}
             </h3>
-            <p className="self-center">{project.type}</p>
-            <p className="self-center">{project.year}</p>
+            <p className="self-center text-xs md:text-base text-foreground/60 hidden sm:block">{project.type}</p>
+            <p className="self-center text-xs md:text-base shrink-0">{project.year}</p>
           </li>
         ))}
       </ul>
@@ -140,8 +137,8 @@ export const SectionOtherProjects = () => {
           src={currentImg}
           alt=""
           style={{
-            width: "300px",
-            height: "200px",
+            width: "fit-content",
+            height: "auto",
             objectFit: "cover",
             display: "block",
           }}
