@@ -40,15 +40,15 @@ export const SectionVisual = () => {
   useGsapVisual();
 
   return (
-    <section className="visual mb-0">
+    <section className="visual">
       <div
-        className="grid h-[110vh] px-15 pt-20 pb-10 box-border"
+        className="grid h-[110vh] px-5 md:px-15 pt-20 box-border"
         style={{ gridTemplateRows: "1fr auto auto" }}
       >
         <h1
-          className="font-normal leading-[0.9] tracking-[-2px]"
+          className="font-normal leading-[0.9] tracking-[-2px] text-primary"
           style={{
-            fontSize: "clamp(50px, 5.5vw, 80px)",
+            fontSize: "clamp(36px, 5.5vw, 80px)",
             maxWidth: "fit-content",
             margin: "0 auto",
             alignContent: "center",
@@ -84,7 +84,7 @@ export const SectionVisual = () => {
         </h1>
 
         <h2
-          className="opacity font-normal text-xl text-[#585858] mb-12.5"
+          className="opacity font-normal text-xl text-foreground/50 mb-12.5"
           style={{ alignSelf: "flex-end" }}
         >
           Creation, production & distribution of Web.

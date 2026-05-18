@@ -30,18 +30,18 @@ export const SectionCreation = () => {
   }, []);
 
   return (
-    <section className="section-creation mb-37.5 px-15">
+    <section className="section-creation px-5 md:px-15">
       <div className="mainTextBox relative">
-        <p className="title overflow-hidden text-[120px] tracking-[-5px]">
+        <p className="title overflow-hidden tracking-[-2px] md:tracking-[-5px] text-primary" style={{ fontSize: "clamp(36px, 10vw, 120px)" }}>
           <i className="block">CREATION</i>
         </p>
 
-        <p className="title overflow-hidden text-[120px] tracking-[-5px]">
+        <p className="title overflow-hidden tracking-[-2px] md:tracking-[-5px] text-primary" style={{ fontSize: "clamp(36px, 10vw, 120px)" }}>
           <i className="block">PRODUCTION</i>
         </p>
 
-        <div className="flex justify-end">
-          <div className="max-w-[550px] mr-5 rounded-[10px] overflow-hidden">
+        <div className="flex flex-col-reverse md:flex-row md:justify-end items-stretch md:items-start gap-3 md:gap-0">
+          <div className="w-full md:max-w-137.5 md:mr-5 rounded-[10px] overflow-hidden">
             <Image
               src="/images/flower.gif"
               alt=""
@@ -51,7 +51,7 @@ export const SectionCreation = () => {
               unoptimized
             />
           </div>
-          <p className="title overflow-hidden text-[120px] tracking-[-5px] self-start">
+          <p className="title overflow-hidden tracking-[-2px] md:tracking-[-5px] self-start text-primary" style={{ fontSize: "clamp(36px, 10vw, 120px)" }}>
             <i className="block">DIFFUSION</i>
           </p>
         </div>
