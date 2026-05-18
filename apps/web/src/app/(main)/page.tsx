@@ -7,7 +7,7 @@ import { SectionWork } from "@/components/sections/section-work";
 
 export default function MainPage() {
   return (
-    <div className="flex flex-col p-10! gap-10 w-full">
+    <div className="flex flex-col px-3 py-5 md:p-10 gap-14 md:gap-24 w-full">
       <SectionVisual />
       <SectionAbout />
       <SectionIn />

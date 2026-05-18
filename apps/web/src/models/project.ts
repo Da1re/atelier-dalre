@@ -20,5 +20,7 @@ export interface Project {
   retrospective?: string
   coverColor: string
   accentColor: string
+  textColor?: string
+  siteUrl?: string
   tag: string
 }
