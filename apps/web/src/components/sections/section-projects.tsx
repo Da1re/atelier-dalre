@@ -57,7 +57,7 @@ export const SectionProjects = () => {
         {/* sticky 제목 */}
         <div className="w-[28%]">
           <h4
-            className="text-[60px] text-[#141212] sticky"
+            className="text-[60px] text-foreground sticky"
             style={{ top: '50%', transform: 'translateY(-50%)' }}
           >
             My Projects
@@ -85,7 +85,7 @@ export const SectionProjects = () => {
                   />
                 </div>
               </div>
-              <h4 className="flex justify-between mt-[15px] mb-[50px] font-semibold tracking-[-1.8px] text-[#141212]">
+              <h4 className="flex justify-between mt-[15px] mb-[50px] font-semibold tracking-[-1.8px] text-foreground">
                 <span>{project.title}</span>
                 <span className="opacity-60 font-normal">{project.year}</span>
               </h4>
