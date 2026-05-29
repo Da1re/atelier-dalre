@@ -66,15 +66,15 @@ export const CERTIFICATIONS = [
     pinned: false,
   },
   {
-    name: "AIBT (AI 비즈니스 활용능력) 2급",
-    issuer: "한국생산성본부",
-    date: "2026.01",
-    pinned: false,
-  },
-  {
     name: "컴퓨터활용능력 2급",
     issuer: "대한상공회의소",
     date: "2024.01",
+    pinned: false,
+  },
+  {
+    name: "AIBT (AI 비즈니스 활용능력) 2급",
+    issuer: "한국생산성본부",
+    date: "2026.01",
     pinned: false,
   },
 ];

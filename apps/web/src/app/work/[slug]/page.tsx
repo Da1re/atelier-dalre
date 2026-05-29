@@ -16,7 +16,7 @@ export default async function WorkDetailPage({ params }: Props) {
   if (!project) notFound()
 
   return (
-    <div className="pt-30 pb-25">
+    <div className="pt-30 pb-25 max-w-screen-2xl mx-auto w-full">
       {/* 뒤로가기 */}
       <div className="px-15 mb-10">
         <Link href="/work" className="text-[13px] text-foreground/40 hover:text-foreground transition-colors">
