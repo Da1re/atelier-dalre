@@ -39,13 +39,21 @@ export const SectionAbout = () => {
       <div className="relative rounded-xl overflow-hidden px-5 md:px-15 py-12 md:py-25 bg-white/20 backdrop-blur-[100px] grid grid-cols-1 md:grid-cols-2 lg:min-h-100 items-center gap-y-8 md:gap-y-10">
         <Link
           href="/about"
-          className="absolute top-10 right-10 text-lg text-foreground/30 hover:text-foreground/70 hover:translate-x-0.5 hover:-translate-y-0.5 transition-all"
+          className="absolute top-10 right-10 flex items-center gap-1.5 text-sm font-semibold text-foreground/30 hover:text-foreground/70 hover:translate-x-0.5 hover:-translate-y-0.5 transition-all"
         >
-          ↗
+          <span className="hidden md:inline">More about me</span>
+          <span className="text-lg">↗</span>
         </Link>
-        <div className="text-2xl md:text-3xl md:row-start-2 text-foreground">
-          안녕하세요! ♪(´▽｀)
-          <br /> FE Developer 유수빈입니다.
+        <div className="md:row-start-2 flex flex-col gap-3 md:gap-4">
+          <div className="text-2xl md:text-3xl text-foreground">
+            안녕하세요! ♪(´▽｀)
+            <br /> FE Developer 유수빈입니다.
+          </div>
+          <div className="text-xs md:text-sm text-foreground/50 tracking-normal flex flex-col md:flex-row md:items-center gap-y-1 md:gap-x-2">
+            <span>Frontend · 4y+ since 2022</span>
+            <span className="hidden md:inline text-foreground/25">•</span>
+            <span>한양대 공학대학원 컴퓨터공학 재학</span>
+          </div>
         </div>
         <div className="max-w-150 text-base md:text-xl md:col-start-2 text-foreground tracking-[-1.1px]">
           <p className="">
