@@ -16,6 +16,9 @@
 
 ---
 
+
+[Magazine Atelier Portfolio](https://atelier-dalre.vercel.app/)
+
 ## Overview
 
 Next.js 16 App Router 기반의 정적 포트폴리오. GSAP로 스크롤·인트로 인터랙션을, `next-themes`로 다크/라이트 테마를, Turborepo + pnpm workspace로 모노레포 구조를 가져갑니다.
@@ -98,7 +101,6 @@ pnpm dev
 
 **유수빈 (SUBIN YOO)**
 Frontend Developer · 4y+ since 2022
-한양대 공학대학원 컴퓨터공학 재학
 
 [Github @Da1re](https://github.com/Da1re)
 
