@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { PROJECTS } from '@/models/project-data'
+import { RetrospectiveBody } from './retrospective-body'
 
 export function generateStaticParams() {
   return PROJECTS.map((p) => ({ slug: p.slug }))
@@ -17,14 +18,12 @@ export default async function WorkDetailPage({ params }: Props) {
 
   return (
     <div className="pt-30 pb-25 max-w-screen-2xl mx-auto w-full">
-      {/* 뒤로가기 */}
       <div className="px-15 mb-10">
         <Link href="/work" className="text-[13px] text-foreground/40 hover:text-foreground transition-colors">
           ← Work 목록으로
         </Link>
       </div>
 
-      {/* 커버 */}
       {(() => {
         const isDark = !!project.textColor
         const fg = project.textColor ?? 'var(--foreground)'
@@ -94,7 +93,6 @@ export default async function WorkDetailPage({ params }: Props) {
         )
       })()}
 
-      {/* 기술 스택 */}
       <div className="px-15 mb-15">
         <h2 className="text-[13px] font-semibold tracking-[2px] text-foreground/40 uppercase mb-4">
           Tech Stack
@@ -111,50 +109,47 @@ export default async function WorkDetailPage({ params }: Props) {
         </div>
       </div>
 
-      {/* 주요 역할 */}
-      <div className="px-15 mb-15">
-        <h2 className="text-[13px] font-semibold tracking-[2px] text-foreground/40 uppercase mb-8">
-          Key Highlights
-        </h2>
-        <div className="grid gap-4">
-          {project.highlights.map((highlight, i) => (
-            <div key={i} className="p-8 rounded-[10px] bg-white/60 border border-foreground/8">
-              <div className="flex items-start gap-4">
-                <span
-                  className="w-1.5 h-1.5 rounded-full flex-shrink-0 mt-2"
-                  style={{ backgroundColor: project.accentColor }}
-                />
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground tracking-[-0.5px] mb-2.5">
-                    {highlight.title}
-                  </h3>
-                  <p className="text-[15px] text-foreground/60 leading-[1.8]">
-                    {highlight.description}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* 회고 */}
-      {project.retrospective && (
+      {project.highlights.length > 0 && (
         <div className="px-15 mb-15">
           <h2 className="text-[13px] font-semibold tracking-[2px] text-foreground/40 uppercase mb-8">
-            Retrospective
+            Key Highlights
           </h2>
-          <div className="max-w-[720px]">
-            {project.retrospective.split('\n\n').map((para, i) => (
-              <p key={i} className="text-[17px] text-foreground/70 leading-[1.9] mb-5">
-                {para}
-              </p>
+          <div className="grid gap-4">
+            {project.highlights.map((highlight, i) => (
+              <div key={i} className="p-8 rounded-[10px] bg-white/60 border border-foreground/8">
+                <div className="flex items-start gap-4">
+                  <span
+                    className="w-1.5 h-1.5 rounded-full shrink-0 mt-2"
+                    style={{ backgroundColor: project.accentColor }}
+                  />
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground tracking-[-0.5px] mb-2.5">
+                      {highlight.title}
+                    </h3>
+                    <p className="text-[15px] text-foreground/60 leading-[1.8]">
+                      {highlight.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       )}
 
-      {/* 다른 프로젝트 */}
+      {project.retrospective && (
+        <div className="px-15 mb-15">
+          <h2 className="text-[13px] font-semibold tracking-[2px] text-foreground/40 uppercase mb-8">
+            Retrospective
+          </h2>
+          <RetrospectiveBody
+            retrospective={project.retrospective}
+            retroKeywords={project.retroKeywords}
+            accentColor={project.accentColor}
+          />
+        </div>
+      )}
+
       <div className="px-15 border-t border-foreground/10 pt-10">
         <h2 className="text-[13px] font-semibold tracking-[2px] text-foreground/40 uppercase mb-6">
           Other Projects

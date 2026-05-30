@@ -29,7 +29,6 @@ const getColors = (project: Project) => {
 export default function WorkPage() {
   return (
     <div className="pt-30 px-5 md:px-15 pb-25 max-w-screen-2xl mx-auto w-full">
-      {/* 페이지 헤더 */}
       <div className="mb-20">
         <h1
           className="font-normal tracking-[-3px] md:tracking-[-5px] text-foreground leading-[0.9]"
@@ -42,7 +41,6 @@ export default function WorkPage() {
         </p>
       </div>
 
-      {/* HERO 카드 */}
       {HERO_PROJECT && (
         <div className="mb-5">
           <h2 className="text-[13px] font-semibold tracking-[3px] text-foreground/40 uppercase mb-6">
@@ -53,10 +51,9 @@ export default function WorkPage() {
             return (
               <Link
                 href={`/work/${HERO_PROJECT.slug}`}
-                className="group relative rounded-[10px] overflow-hidden flex flex-col justify-between p-6 md:p-12 pt-7 md:pt-14 cursor-pointer min-h-80 md:min-h-[28rem]"
+                className="group relative rounded-[10px] overflow-hidden flex flex-col justify-between p-6 md:p-12 pt-7 md:pt-14 cursor-pointer min-h-80 md:min-h-[28rem] transition-transform duration-300 hover:scale-[1.01] hover:z-10"
                 style={{ backgroundColor: HERO_PROJECT.coverColor }}
               >
-                {/* 상단 액센트 스트라이프 */}
                 <span className="absolute top-0 left-0 right-0 h-1 bg-foreground" />
 
                 <div className="pr-10 md:pr-14">
@@ -115,7 +112,25 @@ export default function WorkPage() {
                   >
                     {HERO_PROJECT.subtitle}
                   </p>
-                  <div className="flex flex-wrap gap-1.5 mt-6">
+                  {HERO_PROJECT.retroKeywords && HERO_PROJECT.retroKeywords.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mt-5">
+                      {HERO_PROJECT.retroKeywords.slice(0, 2).map((kw) => (
+                        <span
+                          key={kw}
+                          className="text-[11px] font-medium px-2.5 py-1 rounded-full border"
+                          style={{
+                            borderColor: c.isDark
+                              ? "rgba(255,255,255,0.3)"
+                              : "color-mix(in srgb, var(--foreground) 25%, transparent)",
+                            color: c.fg,
+                          }}
+                        >
+                          {kw}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  <div className="flex flex-wrap gap-1.5 mt-3">
                     {HERO_PROJECT.techStack.slice(0, 7).map((tech) => (
                       <span
                         key={tech}
@@ -140,7 +155,6 @@ export default function WorkPage() {
         </div>
       )}
 
-      {/* LARGE 2-col 그리드 */}
       {LARGE_PROJECTS.length > 0 && (
         <div className="mb-20">
           <h2 className="text-[13px] font-semibold tracking-[3px] text-foreground/40 uppercase mb-6">
@@ -153,7 +167,7 @@ export default function WorkPage() {
                 <Link
                   key={project.slug}
                   href={`/work/${project.slug}`}
-                  className="group relative rounded-[10px] overflow-hidden min-h-80 md:min-h-95 flex flex-col justify-between p-6 md:p-10 cursor-pointer"
+                  className="group relative rounded-[10px] overflow-hidden min-h-80 md:min-h-95 flex flex-col justify-between p-6 md:p-10 cursor-pointer transition-transform duration-300 hover:scale-[1.015] hover:z-10"
                   style={{ backgroundColor: project.coverColor }}
                 >
                   <div>
@@ -183,11 +197,29 @@ export default function WorkPage() {
                       {project.title}
                     </h3>
                     <p
-                      className="text-sm leading-[1.6] mb-5"
+                      className="text-sm leading-[1.6] mb-4"
                       style={{ color: c.fgMuted }}
                     >
                       {project.subtitle}
                     </p>
+                    {project.retroKeywords && project.retroKeywords.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 mb-3">
+                        {project.retroKeywords.slice(0, 2).map((kw) => (
+                          <span
+                            key={kw}
+                            className="text-[10.5px] font-medium px-2.5 py-1 rounded-full border"
+                            style={{
+                              borderColor: c.isDark
+                                ? "rgba(255,255,255,0.3)"
+                                : "color-mix(in srgb, var(--foreground) 25%, transparent)",
+                              color: c.fg,
+                            }}
+                          >
+                            {kw}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                     <div className="flex flex-wrap gap-1.5">
                       {project.techStack.slice(0, 4).map((tech) => (
                         <span
@@ -214,7 +246,6 @@ export default function WorkPage() {
         </div>
       )}
 
-      {/* 전체 프로젝트 — 게시판형 */}
       <div>
         <h2 className="text-[13px] font-semibold tracking-[3px] text-foreground/40 uppercase mb-6">
           All Projects
@@ -224,7 +255,7 @@ export default function WorkPage() {
             <li key={project.slug} className="border-b border-foreground/10">
               <Link
                 href={`/work/${project.slug}`}
-                className="group flex items-center justify-between py-6 hover:px-3 transition-all"
+                className="group flex items-center justify-between py-6 px-2 hover:px-4 hover:bg-foreground/3 transition-all rounded-lg"
               >
                 <div className="flex items-center gap-6">
                   <span className="text-sm text-foreground/20 font-mono w-7">

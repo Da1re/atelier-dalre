@@ -1,5 +1,6 @@
 import { SectionAbout } from "@/components/sections/section-about";
 import { SectionCreation } from "@/components/sections/section-creation";
+import { SectionDesign } from "@/components/sections/section-design";
 import { SectionIn } from "@/components/sections/section-in";
 import { SectionOtherProjects } from "@/components/sections/section-other-projects";
 import { SectionVisual } from "@/components/sections/section-visual";
@@ -12,7 +13,7 @@ export default function MainPage() {
       <SectionAbout />
       <SectionIn />
       <SectionWork />
-      {/* <SectionProjects /> */}
+      <SectionDesign />
       <SectionCreation />
       <SectionOtherProjects />
     </div>
