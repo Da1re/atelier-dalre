@@ -5,29 +5,32 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useMegaMenu } from "@/hooks/use-mega-menu";
+import { MegaMenuDesign } from "./mega-menu-design";
+import { MegaMenuWork } from "./mega-menu-work";
 import { ThemeToggle } from "./theme-toggle";
 
-type MenuType = "link" | "text" | "button";
+type MenuKey = "home" | "about" | "work" | "design";
 
 interface MenuItem {
+  key: MenuKey;
   label: string;
-  type: MenuType;
-  path?: string;
+  path: string;
+  hasMegaMenu: boolean;
 }
 
 const MENU_LIST: MenuItem[] = [
-  { label: "Home", type: "link", path: "/" },
-  { label: "About", type: "link", path: "/about" },
-  { label: "Work", type: "button", path: "/work" },
-  { label: "Design System", type: "button", path: "/design" },
+  { key: "home", label: "Home", path: "/", hasMegaMenu: false },
+  { key: "about", label: "About", path: "/about", hasMegaMenu: false },
+  { key: "work", label: "Work", path: "/work", hasMegaMenu: true },
+  { key: "design", label: "Design System", path: "/design", hasMegaMenu: true },
 ];
-
-const DELAY_CLASSES = ["", "delay-75", "delay-100", "delay-150"];
 
 export const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { activeMenu, openMenu, scheduleClose, closeNow } = useMegaMenu();
 
   const isActive = (path: string) =>
     path === "/" ? pathname === "/" : pathname.startsWith(path);
@@ -42,187 +45,179 @@ export const Header = () => {
     return () => document.removeEventListener("click", handleClickOutside);
   }, [menuOpen]);
 
-  const handleNavigate = (path: string) => {
+  useEffect(() => {
+    closeNow();
+  }, [pathname, closeNow]);
+
+  const handleMobileNavigate = (path: string) => {
     router.push(path);
     setMenuOpen(false);
   };
 
   return (
-    <header className="fixed w-full z-50">
-      <div className="px-5 md:px-15 pb-0 flex justify-between items-center">
-        <Link href="/" className="w-37.5 flex-shrink-0 z-50">
-          <span className="py-0 px-px">
-            <Image
-              src="/images/logo/main-logo.png"
-              alt="메인 로고"
-              width={95}
-              height={30}
-              className="w-[95px] dark:invert"
-            />
-          </span>
-        </Link>
-
-        {/* 데스크탑 네비 */}
-        <nav className="relative flex-1 text-center min-h-15 hidden md:block">
-          <button
-            className="text-[10px] font-semibold absolute left-1/2 -translate-x-1/2 top-2.5 py-7.5 px-10 z-50 cursor-pointer text-foreground select-none bg-transparent border-0"
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              setMenuOpen((prev) => !prev);
-            }}
+    <header className="fixed top-3 md:top-4 left-3 md:left-10 right-3 md:right-10 z-50">
+      <div
+        onMouseLeave={scheduleClose}
+        className={clsx(
+          "rounded-[14px] border overflow-hidden transition-[background-color,border-color,box-shadow,backdrop-filter] ease-out",
+          activeMenu
+            ? "duration-300 border-foreground/10 bg-background/85 backdrop-blur-xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.12)]"
+            : "duration-650 border-transparent bg-transparent shadow-none",
+        )}
+      >
+        <div className="px-5 md:px-10 py-4 md:py-5 flex justify-between items-center">
+          <Link
+            href="/"
+            className="w-37.5 shrink-0"
+            onClick={closeNow}
           >
-            MENU
-            <span
-              className={clsx(
-                "block absolute left-1/2 -translate-x-1/2 top-[15px] h-px rounded-full bg-foreground transition-all duration-300",
-                menuOpen ? "w-32.5" : "w-17.5",
-              )}
-              aria-hidden
-            />
-          </button>
+            <span className="py-0 px-px">
+              <Image
+                src="/images/logo/main-logo.png"
+                alt="메인 로고"
+                width={95}
+                height={30}
+                className="w-23.75 dark:invert"
+              />
+            </span>
+          </Link>
 
-          <ul
-            className={clsx(
-              "group/menu fixed left-1/2 -translate-x-1/2 w-[99vw] text-center rounded-[5px] pt-32.5 pb-12.5 box-border z-40 transition-all",
-              menuOpen
-                ? "top-2.5 opacity-100 pointer-events-auto duration-[400ms]"
-                : "top-[-1300%] opacity-0 pointer-events-none duration-[1500ms]",
-            )}
-            style={{
-              backgroundColor: "rgba(255, 255, 255, 0.4)",
-              backdropFilter: "blur(30px)",
-            }}
-          >
-            {MENU_LIST.map((item, idx) => {
-              const delayClass = menuOpen && idx <= 3 ? DELAY_CLASSES[idx] : "";
-              const animClass = clsx(
-                "block text-[40px] font-normal duration-[600ms] transform",
-                menuOpen ? "translate-y-0" : "-translate-y-25",
-                delayClass,
-              );
-              const active = !!item.path && isActive(item.path);
-              const itemClass = clsx(
-                animClass,
-                "transition-all duration-200",
-                active
-                  ? "text-primary"
-                  : "text-foreground group-hover/menu:opacity-30 hover:!opacity-100 hover:text-primary",
-              );
-
-              if (item.type === "link") {
+          <nav className="hidden md:flex flex-1 justify-center items-center">
+            <ul className="flex items-center gap-1">
+              {MENU_LIST.map((item) => {
+                const active = isActive(item.path);
+                const isMegaOpen = item.hasMegaMenu && activeMenu === item.key;
+                const highlight = active || isMegaOpen;
                 return (
-                  <li className="overflow-hidden py-1" key={item.label}>
-                    <Link href={item.path!} className={itemClass} onClick={() => setMenuOpen(false)}>
+                  <li
+                    key={item.key}
+                    onMouseEnter={() => {
+                      if (item.hasMegaMenu) {
+                        openMenu(item.key as "work" | "design");
+                        return;
+                      }
+                      scheduleClose();
+                    }}
+                  >
+                    <Link
+                      href={item.path}
+                      onClick={closeNow}
+                      className={clsx(
+                        "group inline-flex flex-col items-center gap-1.5 px-5 py-2.5 text-[13px] font-medium tracking-tight transition-colors",
+                        highlight
+                          ? "text-foreground"
+                          : "text-foreground/60 hover:text-foreground",
+                      )}
+                    >
                       {item.label}
+                      <span
+                        className={clsx(
+                          "block w-1 h-1 rounded-full transition-all duration-200",
+                          highlight
+                            ? "bg-primary scale-100"
+                            : "bg-foreground/30 scale-75 group-hover:scale-100 group-hover:bg-foreground/70",
+                        )}
+                      />
                     </Link>
                   </li>
                 );
-              }
+              })}
+            </ul>
+          </nav>
 
-              return (
-                <li className="overflow-hidden py-1" key={item.label}>
-                  <button
-                    className={clsx(itemClass, "cursor-pointer bg-transparent border-0 outline-none text-center w-full")}
-                    onClick={() => handleNavigate(item.path!)}
-                    type="button"
-                  >
-                    {item.label}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+          <div className="w-37.5 shrink-0 flex items-center justify-end gap-4">
+            <ThemeToggle />
 
-        <div className="w-37.5 shrink-0 flex items-center justify-end gap-4 z-50">
-          <ThemeToggle />
+            <button
+              className="md:hidden flex flex-col justify-center gap-1.25 w-6 h-6 bg-transparent border-0 cursor-pointer"
+              type="button"
+              aria-label="메뉴 열기"
+              onClick={(e) => {
+                e.stopPropagation();
+                setMenuOpen((prev) => !prev);
+              }}
+            >
+              <span
+                className={clsx(
+                  "block h-px bg-foreground rounded-full transition-all duration-300 origin-center",
+                  menuOpen ? "w-6 translate-y-1.75 rotate-45" : "w-6",
+                )}
+              />
+              <span
+                className={clsx(
+                  "block h-px bg-foreground rounded-full transition-all duration-300",
+                  menuOpen ? "opacity-0 w-0" : "w-4 opacity-100",
+                )}
+              />
+              <span
+                className={clsx(
+                  "block h-px bg-foreground rounded-full transition-all duration-300 origin-center",
+                  menuOpen ? "w-6 -translate-y-1.75 -rotate-45" : "w-6",
+                )}
+              />
+            </button>
+          </div>
+        </div>
 
-          {/* 모바일 햄버거 버튼 */}
-          <button
-            className="md:hidden flex flex-col justify-center gap-1.25 w-6 h-6 bg-transparent border-0 cursor-pointer"
-            type="button"
-            aria-label="메뉴 열기"
-            onClick={(e) => {
-              e.stopPropagation();
-              setMenuOpen((prev) => !prev);
-            }}
-          >
-            <span
-              className={clsx(
-                "block h-px bg-foreground rounded-full transition-all duration-300 origin-center",
-                menuOpen ? "w-6 translate-y-1.75 rotate-45" : "w-6",
-              )}
-            />
-            <span
-              className={clsx(
-                "block h-px bg-foreground rounded-full transition-all duration-300",
-                menuOpen ? "opacity-0 w-0" : "w-4 opacity-100",
-              )}
-            />
-            <span
-              className={clsx(
-                "block h-px bg-foreground rounded-full transition-all duration-300 origin-center",
-                menuOpen ? "w-6 -translate-y-1.75 -rotate-45" : "w-6",
-              )}
-            />
-          </button>
+        <div
+          className={clsx(
+            "hidden md:grid transition-[grid-template-rows] ease-out",
+            activeMenu ? "duration-400" : "duration-650",
+          )}
+          style={{ gridTemplateRows: activeMenu ? "1fr" : "0fr" }}
+          aria-hidden={!activeMenu}
+        >
+          <div className="overflow-hidden">
+            {activeMenu === "work" && <MegaMenuWork onItemClick={closeNow} />}
+            {activeMenu === "design" && (
+              <MegaMenuDesign onItemClick={closeNow} />
+            )}
+          </div>
         </div>
       </div>
 
-      {/* 모바일 드로어 */}
-      <>
-        <div
-          className={clsx(
-            "fixed inset-0 bg-foreground/20 z-40 md:hidden transition-opacity duration-300",
-            menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
-          )}
-          onClick={() => setMenuOpen(false)}
-        />
-        <nav
-          className={clsx(
-            "fixed top-0 right-0 h-full w-72 z-50 md:hidden flex flex-col pt-20 pb-10 px-8 transition-transform duration-400",
-            menuOpen ? "translate-x-0" : "translate-x-full",
-          )}
-          style={{
-            backgroundColor: "rgba(248, 248, 248, 0.95)",
-            backdropFilter: "blur(20px)",
-          }}
-        >
-          <ul className="flex flex-col gap-1 flex-1">
-            {MENU_LIST.map((item) => {
-              const active = !!item.path && isActive(item.path);
-              const itemClass = clsx(
-                "block text-[32px] font-normal tracking-[-1px] py-2 transition-colors duration-200",
-                active ? "text-primary" : "text-foreground/70 hover:text-primary",
-              );
+      <div
+        className={clsx(
+          "fixed inset-0 bg-foreground/20 z-40 md:hidden transition-opacity duration-300",
+          menuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none",
+        )}
+        onClick={() => setMenuOpen(false)}
+      />
+      <nav
+        className={clsx(
+          "fixed top-0 right-0 h-full w-72 z-50 md:hidden flex flex-col pt-20 pb-10 px-8 transition-transform duration-400",
+          menuOpen ? "translate-x-0" : "translate-x-full",
+        )}
+        style={{
+          backgroundColor: "rgba(248, 248, 248, 0.95)",
+          backdropFilter: "blur(20px)",
+        }}
+      >
+        <ul className="flex flex-col gap-1 flex-1">
+          {MENU_LIST.map((item) => {
+            const active = isActive(item.path);
+            const itemClass = clsx(
+              "block text-[32px] font-normal tracking-[-1px] py-2 transition-colors duration-200 cursor-pointer bg-transparent border-0 outline-none text-left w-full",
+              active ? "text-primary" : "text-foreground/70 hover:text-primary",
+            );
 
-              if (item.type === "link") {
-                return (
-                  <li key={item.label}>
-                    <Link href={item.path!} className={itemClass} onClick={() => setMenuOpen(false)}>
-                      {item.label}
-                    </Link>
-                  </li>
-                );
-              }
-
-              return (
-                <li key={item.label}>
-                  <button
-                    className={clsx(itemClass, "cursor-pointer bg-transparent border-0 outline-none text-left w-full")}
-                    onClick={() => handleNavigate(item.path!)}
-                    type="button"
-                  >
-                    {item.label}
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
-          <p className="text-xs text-foreground/30 font-mono">© Dalre 2026</p>
-        </nav>
-      </>
+            return (
+              <li key={item.key}>
+                <button
+                  className={itemClass}
+                  onClick={() => handleMobileNavigate(item.path)}
+                  type="button"
+                >
+                  {item.label}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+        <p className="text-xs text-foreground/30 font-mono">© Dalre 2026</p>
+      </nav>
     </header>
   );
 };
