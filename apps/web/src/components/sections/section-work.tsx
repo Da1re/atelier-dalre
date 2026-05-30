@@ -49,14 +49,12 @@ export const SectionWork = () => {
         </Link>
       </div>
 
-      {/* HERO 카드 */}
       {HERO_PROJECT && (
         <Link
           href={`/work/${HERO_PROJECT.slug}`}
-          className="group relative rounded-[10px] overflow-hidden flex flex-col justify-between p-6 md:p-12 pt-7 md:pt-14 cursor-pointer min-h-80 md:min-h-[28rem] mb-4 md:mb-5"
+          className="group relative rounded-[10px] overflow-hidden flex flex-col justify-between p-6 md:p-12 pt-7 md:pt-14 cursor-pointer min-h-80 md:min-h-[28rem] mb-4 md:mb-5 transition-transform duration-300 hover:scale-[1.01] hover:z-10"
           style={{ backgroundColor: HERO_PROJECT.coverColor }}
         >
-          {/* 상단 액센트 스트라이프 */}
           <span className="absolute top-0 left-0 right-0 h-1 bg-foreground" />
 
           {(() => {
@@ -120,7 +118,26 @@ export const SectionWork = () => {
                     {HERO_PROJECT.subtitle}
                   </p>
 
-                  <div className="flex flex-wrap gap-1.5 mt-6">
+                  {HERO_PROJECT.retroKeywords && HERO_PROJECT.retroKeywords.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mt-5">
+                      {HERO_PROJECT.retroKeywords.slice(0, 2).map((kw) => (
+                        <span
+                          key={kw}
+                          className="text-[11px] font-medium px-2.5 py-1 rounded-full border"
+                          style={{
+                            borderColor: c.isDark
+                              ? "rgba(255,255,255,0.3)"
+                              : "color-mix(in srgb, var(--foreground) 25%, transparent)",
+                            color: c.fg,
+                          }}
+                        >
+                          {kw}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap gap-1.5 mt-3">
                     {HERO_PROJECT.techStack.slice(0, 7).map((tech) => (
                       <span
                         key={tech}
@@ -148,7 +165,6 @@ export const SectionWork = () => {
         </Link>
       )}
 
-      {/* LARGE 2-col 그리드 */}
       {LARGE_PROJECTS.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 mb-4 md:mb-5">
           {LARGE_PROJECTS.map((project) => {
@@ -157,7 +173,7 @@ export const SectionWork = () => {
               <Link
                 key={project.slug}
                 href={`/work/${project.slug}`}
-                className="group relative rounded-[10px] overflow-hidden min-h-72 md:min-h-100 flex flex-col justify-between p-6 md:p-10 cursor-pointer"
+                className="group relative rounded-[10px] overflow-hidden min-h-72 md:min-h-100 flex flex-col justify-between p-6 md:p-10 cursor-pointer transition-transform duration-300 hover:scale-[1.015] hover:z-10"
                 style={{ backgroundColor: project.coverColor }}
               >
                 <div>
@@ -194,7 +210,26 @@ export const SectionWork = () => {
                     {project.subtitle}
                   </p>
 
-                  <div className="flex flex-wrap gap-1.5 mt-5">
+                  {project.retroKeywords && project.retroKeywords.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mt-4">
+                      {project.retroKeywords.slice(0, 2).map((kw) => (
+                        <span
+                          key={kw}
+                          className="text-[10.5px] font-medium px-2.5 py-1 rounded-full border"
+                          style={{
+                            borderColor: c.isDark
+                              ? "rgba(255,255,255,0.3)"
+                              : "color-mix(in srgb, var(--foreground) 25%, transparent)",
+                            color: c.fg,
+                          }}
+                        >
+                          {kw}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap gap-1.5 mt-3">
                     {project.techStack.slice(0, 5).map((tech) => (
                       <span
                         key={tech}
@@ -222,7 +257,6 @@ export const SectionWork = () => {
         </div>
       )}
 
-      {/* SMALL FEATURED 컴팩트 카드 */}
       {SMALL_FEATURED_PROJECTS.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-4 md:mb-5">
           {SMALL_FEATURED_PROJECTS.map((project) => {
@@ -273,7 +307,6 @@ export const SectionWork = () => {
         </div>
       )}
 
-      {/* LIST 텍스트 리스트 */}
       {LIST_PROJECTS.length > 0 && (
         <ul className="border-t border-foreground/10">
           {LIST_PROJECTS.map((project) => (
@@ -283,7 +316,7 @@ export const SectionWork = () => {
             >
               <Link
                 href={`/work/${project.slug}`}
-                className="group flex justify-between items-center py-5 hover:px-2.5 transition-all"
+                className="group flex justify-between items-center py-5 px-2 hover:px-4 hover:bg-foreground/3 transition-all rounded-lg"
               >
                 <div className="flex items-center gap-4 md:gap-5">
                   <span
