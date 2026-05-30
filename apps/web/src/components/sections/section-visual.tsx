@@ -40,9 +40,15 @@ export const SectionVisual = () => {
   useGsapVisual();
 
   return (
-    <section className="visual">
+    <section className="visual relative">
+      <div className="absolute top-22 md:top-26 right-5 md:right-15 text-[10px] md:text-[11px] font-semibold tracking-[3px] uppercase text-foreground/40 z-10 flex flex-col md:flex-row md:items-center gap-y-1 md:gap-x-3 text-right md:text-left">
+        <span>Vol.01 — 2026</span>
+        <span className="hidden md:inline text-foreground/20">•</span>
+        <span>Frontend Portfolio</span>
+      </div>
+
       <div
-        className="grid h-[110vh] px-5 md:px-15 pt-20 box-border"
+        className="grid h-screen px-5 md:px-15 pt-20 box-border"
         style={{ gridTemplateRows: "1fr auto auto" }}
       >
         <h1
@@ -84,7 +90,7 @@ export const SectionVisual = () => {
         </h1>
 
         <h2
-          className="opacity font-normal text-xl text-foreground/50 mb-12.5"
+          className="opacity font-semibold text-xs md:text-sm tracking-[2.5px] uppercase leading-[1.7] text-foreground/50 mb-12.5"
           style={{ alignSelf: "flex-end" }}
         >
           Creation, production & distribution of Web.
@@ -105,6 +111,13 @@ export const SectionVisual = () => {
             </span>
           ))}
         </div>
+      </div>
+
+      <div className="scrollIndicator absolute bottom-[28%] md:bottom-[26%] left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-foreground/55 pointer-events-none z-10">
+        <span className="text-[11px] font-semibold tracking-[3px] uppercase">
+          Scroll
+        </span>
+        <span className="scrollIndicator-arrow text-base leading-none">↓</span>
       </div>
     </section>
   );

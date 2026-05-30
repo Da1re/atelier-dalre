@@ -12,17 +12,14 @@ export const useGsapVisual = () => {
       const lines = document.querySelectorAll<HTMLElement>(
         ".visual h1 .rotateText, .visual h1 .opacityText",
       );
-      // lines[0]: Be natural / [1]: more Attention / [2]: Create / [3]: Developer
 
-      // 첫 진입(로딩 스크린 있음) vs 라우팅 진입(로딩 스크린 없음) 구분
       const loadingDone =
         typeof window !== "undefined" &&
         sessionStorage.getItem("loadingDone") === "1";
 
-      // 텍스트를 글자 단위 <span class="char">로 쪼개기
       const splitToChars = (line: HTMLElement) => {
         const target = line.querySelector("p, i") as HTMLElement | null;
-        if (!target || target.querySelector(".char")) return; // 이미 쪼개진 경우 skip
+        if (!target || target.querySelector(".char")) return;
         const text = target.textContent || "";
         target.textContent = "";
         text.split("").forEach((c) => {
@@ -33,7 +30,6 @@ export const useGsapVisual = () => {
           span.style.willChange = "transform, opacity, filter";
           target.appendChild(span);
         });
-        // 글자가 라인 밖으로 튀어나갈 수 있게 overflow 해제
         line.style.overflow = "visible";
       };
 
@@ -51,7 +47,6 @@ export const useGsapVisual = () => {
         const c3 = Array.from(getChars(lines[3]));
         console.log("[useGsapVisual] char counts:", c0.length, c1.length, c2.length, c3.length);
 
-        // 초기 상태를 즉시 강제 적용 (트리거 발화 전 깜빡임 방지)
         gsap.set(c0, { y: -180, rotation: -120, opacity: 0, scale: 0.4 });
         gsap.set(c1, { scale: 3, filter: "blur(24px)", opacity: 0 });
         gsap.set(c2, {
@@ -71,7 +66,6 @@ export const useGsapVisual = () => {
         });
 
         tl
-          // 1) Be natural — 위에서 회전하며 떨어짐
           .to(c0, {
             y: 0,
             rotation: 0,
@@ -81,7 +75,6 @@ export const useGsapVisual = () => {
             ease: "back.out(2)",
             stagger: 0.06,
           })
-          // 2) more Attention — 큰 scale + blur 풀리며 focus
           .to(
             c1,
             {
@@ -94,7 +87,6 @@ export const useGsapVisual = () => {
             },
             "-=0.5",
           )
-          // 3) Create — 좌우에서 번갈아 스핀
           .to(
             c2,
             {
@@ -108,7 +100,6 @@ export const useGsapVisual = () => {
             },
             "-=0.5",
           )
-          // 4) Developer — 아래에서 elastic
           .to(
             c3,
             {
@@ -183,6 +174,31 @@ export const useGsapVisual = () => {
           { x: 50, y: 450, rotate: 20, ease: "none", duration: 5 },
           0,
         );
+
+      gsap.to(".visual .svgAni", {
+        rotation: 360,
+        duration: 18,
+        ease: "none",
+        repeat: -1,
+        transformOrigin: "50% 50%",
+      });
+
+      gsap.to(".visual .svgAni img", {
+        scale: 1.08,
+        duration: 2.2,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+        transformOrigin: "50% 50%",
+      });
+
+      gsap.to(".visual .scrollIndicator-arrow", {
+        y: 6,
+        duration: 1,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+      });
     });
 
     return () => ctx.revert();
