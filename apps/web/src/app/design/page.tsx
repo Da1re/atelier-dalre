@@ -4,7 +4,6 @@ import {
   COMPONENT_GROUPS,
   STORYBOOK_URL,
   TOKEN_GROUPS,
-  V2_STATS,
 } from "@/models/design-system-data";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -29,7 +28,6 @@ export default function DesignPage() {
       default="none"
     >
     <div className="pt-30 px-5 md:px-15 pb-25 max-w-screen-2xl mx-auto w-full">
-      {/* 헤더 */}
       <div className="mb-16 border-b border-foreground/10 pb-15">
         <p className="text-[13px] font-semibold tracking-[3px] text-foreground/40 uppercase mb-4">
           Design System
@@ -53,8 +51,8 @@ export default function DesignPage() {
               </Link>{" "}
               및 접근성(WAI-ARIA)을 기반으로 구현된 {totalCount}종의 UI
               컴포넌트.
-              <br /> Turborepo 모노레포 내 독립 패키지로 분리되어 다수
-              서비스에서 재사용했습니다.
+              <br /> Turborepo 모노레포 내 독립 패키지로 분리되어 사내 5개 이상
+              프로젝트에서 재사용 중입니다.
             </p>
             <div className="flex flex-wrap items-center gap-4 mt-4">
               <span className="inline-flex items-center gap-2 text-xs text-foreground/50">
@@ -78,29 +76,18 @@ export default function DesignPage() {
         </div>
       </div>
 
-      {/* v2.0 통계 카드 */}
       <div className="mb-20">
         <div className="flex items-baseline justify-between mb-5">
           <h2 className="text-sm font-semibold tracking-[2px] uppercase text-foreground/50">
-            v2.0 Migration
+            Library
           </h2>
-          <span className="text-[11px] text-foreground/40 font-mono">
-            2025.05 — 2025.05
-          </span>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[
-            { label: "Components", value: V2_STATS.components },
-            { label: "Changes", value: `${V2_STATS.changes}+` },
-            {
-              label: "Lines Added",
-              value: `+${V2_STATS.linesAdded.toLocaleString()}`,
-            },
-            {
-              label: "Lines Removed",
-              value: `−${V2_STATS.linesRemoved.toLocaleString()}`,
-            },
-            { label: "Commits", value: V2_STATS.commits },
+            { label: "Components", value: totalCount },
+            { label: "Designed", value: mineCount },
+            { label: "Categories", value: COMPONENT_GROUPS.length },
+            { label: "Adopted", value: "5+" },
           ].map((stat) => (
             <div
               key={stat.label}
@@ -120,7 +107,6 @@ export default function DesignPage() {
         </div>
       </div>
 
-      {/* A. Tokens & Infra */}
       <div className="mb-20">
         <div className="flex items-baseline justify-between mb-6 border-b border-foreground/10 pb-4">
           <div className="flex items-baseline gap-4">
@@ -165,7 +151,6 @@ export default function DesignPage() {
         </div>
       </div>
 
-      {/* 컴포넌트 그룹 */}
       <div className="flex flex-col gap-16">
         {COMPONENT_GROUPS.map((group) => (
           <div key={group.category}>
