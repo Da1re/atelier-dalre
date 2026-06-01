@@ -1,35 +1,30 @@
 <div align="center">
 
-# Atelier Dalre
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/banner.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="./assets/banner-light.svg" />
+  <img src="./assets/banner-light.svg" alt="Atelier Dalre — be natural" width="100%" />
+</picture>
 
 **Frontend Developer 유수빈의 개인 포트폴리오 — 작업·디자인 시스템·회고가 한곳에 모이는 작업실.**
 
-[![Next.js](https://img.shields.io/badge/Next.js-16-000?logo=nextdotjs&logoColor=white)](https://nextjs.org)
-[![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4-38BDF8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-[![GSAP](https://img.shields.io/badge/GSAP-3-88CE02?logo=greensock&logoColor=white)](https://gsap.com)
-[![Turborepo](https://img.shields.io/badge/Turborepo-2-EF4444?logo=turborepo&logoColor=white)](https://turbo.build)
-[![pnpm](https://img.shields.io/badge/pnpm-10-F69220?logo=pnpm&logoColor=white)](https://pnpm.io)
+> _복잡한 걸 단순하게, 단순한 걸 아름답게._ ✦
+
+**[ ✦ Live — atelier-dalre.vercel.app ✦ ](https://atelier-dalre.vercel.app/)**
 
 </div>
 
 ---
 
-
-[Magazine Atelier Portfolio](https://atelier-dalre.vercel.app/)
-
 ## Overview
 
-Next.js 16 App Router 기반의 정적 포트폴리오. GSAP로 스크롤·인트로 인터랙션을, `next-themes`로 다크/라이트 테마를, Turborepo + pnpm workspace로 모노레포 구조를 가져갑니다.
-
-브랜드 컨셉은 **Atelier(작업실)** — 단순한 프로젝트 리스트가 아니라 작업 → 회고 → 디자인 시스템 → 글까지 한 공간에서 흐름으로 보여주는 것을 지향합니다.
+Next.js 16 App Router 기반 정적 포트폴리오. GSAP로 스크롤·인트로 인터랙션을, `next-themes`로 다크/라이트 테마를, Turborepo + pnpm workspace로 모노레포 구조를 가져갑니다. 브랜드 컨셉은 **Atelier(작업실)** — 단순한 프로젝트 리스트가 아니라 작업·회고·디자인 시스템·글까지 한 공간에서 흐름으로 보여주는 것을 지향합니다.
 
 ## Site Map
 
 | 페이지            | 경로           | 설명                                                                 |
 | ----------------- | -------------- | -------------------------------------------------------------------- |
-| **Home**          | `/`            | 비주얼 히어로 + About + Section In + Work + Design System + Creation |
+| **Home**          | `/`            | 비주얼 히어로 + About 인트로 + Work + Design System + Creation |
 | **About**         | `/about`       | 자기소개 · 이력 · 관심 영역                                          |
 | **Work**          | `/work`        | 프로젝트 목록                                                        |
 | **Work Detail**   | `/work/[slug]` | 프로젝트별 Highlights · 회고 · Retro Keywords                        |
@@ -100,12 +95,14 @@ pnpm dev
 ## Author
 
 **유수빈 (SUBIN YOO)**
-Frontend Developer · 4y+ since 2022
+Frontend Developer
 
-[Github @Da1re](https://github.com/Da1re)
+[![Github](https://img.shields.io/badge/@Da1re-111010?style=flat-square&logo=github&logoColor=white)](https://github.com/Da1re)
 
 ---
 
 <div align="center">
-<sub>© 2026 Atelier Dalre. Built with care.</sub>
+
+<sub>✦ © 2026 Atelier Dalre — be natural, built with care. ✦</sub>
+
 </div>
