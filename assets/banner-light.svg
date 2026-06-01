@@ -1,0 +1,35 @@
+<svg width="1280" height="320" viewBox="0 0 1280 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Atelier Dalre — be natural">
+  <defs>
+    <clipPath id="card">
+      <rect width="1280" height="320" rx="16" />
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#card)">
+    <!-- backdrop : light tone -->
+    <rect width="1280" height="320" fill="#fafafa" />
+    <rect x="0.5" y="0.5" width="1279" height="319" rx="16" fill="none" stroke="#000000" stroke-opacity="0.08" />
+
+    <!-- faint magazine grid lines -->
+    <line x1="64" y1="64" x2="64" y2="256" stroke="#111010" stroke-opacity="0.10" />
+    <line x1="64" y1="64" x2="1216" y2="64" stroke="#111010" stroke-opacity="0.06" />
+
+    <!-- minimal geometric accent (right side) -->
+    <circle cx="1080" cy="160" r="120" fill="none" stroke="#0358d5" stroke-opacity="0.35" />
+    <circle cx="1080" cy="160" r="78" fill="none" stroke="#111010" stroke-opacity="0.08" />
+    <circle cx="1158" cy="160" r="6" fill="#ff7900" />
+    <circle cx="1002" cy="160" r="3" fill="#111010" fill-opacity="0.3" />
+
+    <!-- kicker -->
+    <text x="86" y="116" font-family="'Helvetica Neue', Arial, sans-serif" font-size="17" font-weight="600"
+          letter-spacing="6" fill="#ff7900">FRONTEND PORTFOLIO &#183; IN MAGAZINE FORM</text>
+
+    <!-- title -->
+    <text x="83" y="200" font-family="'Helvetica Neue', Arial, sans-serif" font-size="86" font-weight="300"
+          letter-spacing="-2" fill="#111010">Atelier Dalre</text>
+
+    <!-- slogan -->
+    <text x="86" y="252" font-family="'Helvetica Neue', Arial, sans-serif" font-size="26" font-weight="300"
+          letter-spacing="1" fill="#111010" fill-opacity="0.7" font-style="italic">be natural<tspan fill="#0358d5" font-style="normal"> &#183;</tspan> 복잡한 걸 단순하게, 단순한 걸 아름답게</text>
+  </g>
+</svg>
