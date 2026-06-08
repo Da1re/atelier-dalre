@@ -61,6 +61,9 @@ body {
   font-size: 16px;
   letter-spacing: -0.01em;
   padding-bottom: 0;
+  /* 한글은 단어 단위로만 줄바꿈(글자 중간 깨짐 방지), 긴 영문/URL은 넘칠 때만 끊김 */
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
 /* ---- Scrollbar ---- */

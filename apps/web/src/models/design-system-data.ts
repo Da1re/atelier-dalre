@@ -1,5 +1,3 @@
-export const STORYBOOK_URL = "https://storybook.saycore.kr";
-
 export type ChangeCategory =
   | "Props"
   | "A11y"
@@ -34,15 +32,6 @@ export interface DesignComponentGroup {
   components: DesignComponent[];
 }
 
-// ─── v2.0 작업 메타 ───────────────────────────────────────────
-export const V2_STATS = {
-  components: 29,
-  changes: 103,
-  linesAdded: 8200,
-  linesRemoved: 3700,
-  commits: 25,
-} as const;
-
 // ─── A. 토큰 · 인프라 ─────────────────────────────────────────
 export interface TokenGroup {
   name: string;
@@ -67,7 +56,7 @@ export const TOKEN_GROUPS: TokenGroup[] = [
     items: [
       "--text-xs / sm / base / lg / xl",
       "Display / Heading / Title / Body / Label 매핑",
-      "Button scoa 타이포 → 가이드 text-* 매핑",
+      "Button 커스텀 타이포 → 가이드 text-* 매핑",
     ],
   },
   {
@@ -307,7 +296,7 @@ export const COMPONENT_GROUPS: DesignComponentGroup[] = [
       {
         slug: "detail",
         name: "Detail",
-        desc: "키-값 상세 정보 레이아웃",
+        desc: "상세·보조 텍스트 (size/weight/color)",
         story: "components-detail--docs",
         mine: true,
       },
@@ -457,3 +446,16 @@ export const ALL_COMPONENTS: DesignComponent[] = COMPONENT_GROUPS.flatMap(
 
 export const getComponentBySlug = (slug: string) =>
   ALL_COMPONENTS.find((c) => c.slug === slug);
+
+// ─── 마이그레이션(v2.0 재설계) 대상 슬러그 ─────────────────
+export const MIGRATED_SLUGS = new Set<string>([
+  "button", "badge", "tag", "chip",
+  "text-input", "number-input", "phone-input", "tel-input", "textarea",
+  "select", "checkbox", "radio", "toggle", "link",
+  "single-date-picker", "range-date-picker", "custom-date-picker", "time-selector",
+  "accordion", "tab", "breadcrumb", "pagination", "modal",
+  "file-upload", "file-button-upload", "alert", "toast-bar", "tooltip",
+  "carousel", "step-indicator", "search-box",
+]);
+
+export const isMigrated = (slug: string) => MIGRATED_SLUGS.has(slug);

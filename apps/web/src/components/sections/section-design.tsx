@@ -2,7 +2,6 @@ import Link from "next/link";
 import {
   ALL_COMPONENTS,
   COMPONENT_GROUPS,
-  STORYBOOK_URL,
 } from "@/models/design-system-data";
 
 const FEATURED_SLUGS = [
@@ -49,7 +48,7 @@ export const SectionDesign = () => {
         >
           <div>
             <span className="text-[10px] font-semibold tracking-[3px] uppercase text-primary">
-              ★ Internal · Storybook Demo
+              ★ Design System · KRDS
             </span>
             <p className="text-xs font-semibold tracking-[2px] uppercase text-foreground/60 mt-3">
               KRDS · WAI-ARIA
@@ -97,14 +96,6 @@ export const SectionDesign = () => {
           </div>
 
         </Link>
-        <a
-          href={STORYBOOK_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="absolute top-5 right-5 md:top-7 md:right-7 z-20 inline-flex items-center gap-1.5 text-[11px] font-semibold px-3 py-1.5 rounded-full border border-foreground/15 bg-background/80 backdrop-blur-sm text-foreground/80 hover:bg-foreground hover:text-background hover:border-foreground transition-colors"
-        >
-          Storybook ↗
-        </a>
         </div>
 
         <div className="md:col-span-2 grid grid-cols-2 gap-2.5 md:gap-3">
