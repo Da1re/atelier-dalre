@@ -1,6 +1,16 @@
+import { DESIGN_NOTES } from "./design-notes";
+
+export interface DesignNote {
+  /** 소제목 — 예: "풀려던 문제", "고려한 trade-off" */
+  title: string;
+  body: string;
+}
+
 export interface ComponentDoc {
   overview: string;
   features: string[];
+  /** 설계 노트 — 무엇을 고민하고 어떻게 결정했는지 (상세 페이지 전용) */
+  designNotes?: DesignNote[];
 }
 
 // 컴포넌트 기본 문서 (overview + features)
@@ -68,6 +78,28 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
       "deleteAction / password 토글",
       "focus·invalid 시 padding 보정으로 layout-shift 제거",
     ],
+    designNotes: [
+      {
+        title: "무엇을 만들려 했나",
+        body: "표준 input의 onChange 시그니처는 그대로 두면서 아이콘·비밀번호 토글·내용 삭제·상태 표시(error/info)까지 한 컴포넌트에 담는 게 목표였다. 사용처는 일반 input처럼 쓰되, 부가 기능은 prop으로만 켜는 구조로 설계했다.",
+      },
+      {
+        title: "아이콘·버튼의 접근성",
+        body: "아이콘에 onIconClick이 있으면 단순 span이 아니라 내부 button으로 감싸(IconSlot 분기) 키보드·스크린리더로 누를 수 있게 했다. 비밀번호 토글·삭제 버튼도 각각 의미 있는 aria-label을 부여했다.",
+      },
+      {
+        title: "상태와 a11y 연결",
+        body: "error 또는 isInvalid면 aria-invalid를 켜고, description·error·info의 id를 모아 aria-describedby로 연결해 스크린리더가 보조 텍스트까지 읽도록 했다. 메시지 노출은 StatusLabel로 일원화했다.",
+      },
+      {
+        title: "layout-shift 제거",
+        body: "아이콘 유무와 invalid 상태에 따라 input의 좌우 padding이 달라지는데, 조합별 클래스(getIconClass)로 padding을 미리 확정해 상태가 바뀌어도 입력창이 흔들리지 않게 했다.",
+      },
+      {
+        title: "ref 노출(forwardRef)",
+        body: "NumberInput·PhoneInput처럼 이 컴포넌트를 감싸는 상위 입력들이 내부 input을 직접 제어해야 해서 forwardRef로 ref를 외부에 노출했다.",
+      },
+    ],
   },
   "number-input": {
     overview:
@@ -78,6 +110,24 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
       "min / max 클램프",
       "표준 onChange 합성 이벤트",
     ],
+    designNotes: [
+      {
+        title: "무엇을 만들려 했나",
+        body: "숫자 입력의 콤마 표기·소수점·raw 값 분리를 컴포넌트 내부에 캡슐화했다. 화면에는 1,000으로 보이지만 부모에게는 콤마 없는 raw 값(1000)을 합성 이벤트로 넘겨, 폼 로직이 순수 숫자만 다루도록 했다.",
+      },
+      {
+        title: "가장 고민한 지점 — 커서 점프",
+        body: "콤마를 넣으면 '1000'이 '1,000'으로 길이가 늘어 커서가 엉뚱한 위치로 튄다. 그래서 입력 전후로 '커서 앞쪽 콤마 개수'의 차이를 계산하고, 포맷팅 후 setSelectionRange로 커서를 보정했다. displayValue가 갱신된 뒤 useEffect에서 한 박자 늦게 커서를 복원하는 게 핵심이었다.",
+      },
+      {
+        title: "TextInput 재사용",
+        body: "숫자 전용 동작만 얹고 레이아웃·상태·접근성은 TextInput을 그대로 감싸 재사용했다. 커서 제어를 위해 ref로 내부 input의 selectionStart를 읽어온다.",
+      },
+      {
+        title: "옵션 설계",
+        body: "useComma·defaultZero·allowDecimal·decimalScale로 콤마 표기·기본 0·소수점 허용·자리수를 prop으로 열었고, 유효하지 않은 입력은 변환 단계에서 null로 걸러 무시했다.",
+      },
+    ],
   },
   "phone-input": {
     overview:
@@ -87,6 +137,24 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
       "WithInitialValue 자동 split",
       "표준 onChange 합성 이벤트",
       "Required / Validation 케이스",
+    ],
+    designNotes: [
+      {
+        title: "무엇을 만들려 했나",
+        body: "전화번호를 3구간(3·4·4)으로 나눠 입력받되, 외부에는 일반 input처럼 합쳐진 문자열을 합성 이벤트로 돌려주는 컴포넌트로 설계했다. 사용처는 단일 값처럼 다루고 분할/조합은 내부가 책임진다.",
+      },
+      {
+        title: "자동 포커스 이동",
+        body: "각 칸을 ref 배열로 잡아, 한 칸이 최대 자릿수에 도달하면 다음 칸으로 포커스를 자동 이동시켰다. 입력값은 정규식으로 숫자만 남기고 구간별 maxLength로 잘라 형식이 항상 유지되게 했다.",
+      },
+      {
+        title: "초기값 분해 — 가장 까다로웠던 부분",
+        body: "외부 value가 바뀌면 splitPhoneNumber로 다시 3구간으로 쪼개는데, 단순 3·4·4가 아니라 전체 자릿수(9/10/11)와 02 지역번호를 판별해 02-354-8645·031-234-5678·010-1234-5678을 모두 올바르게 끊도록 했다.",
+      },
+      {
+        title: "역동기화 방지",
+        body: "내부 입력값(세 칸을 합친 문자열)과 외부 value가 실제로 다를 때만 split을 다시 돌려, 불필요한 재계산과 값이 되돌아가는 현상을 막았다.",
+      },
     ],
   },
   "tel-input": {
@@ -292,12 +360,12 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
   detail: {
     overview:
-      "키–값 형태의 상세 정보 레이아웃. dl/dt/dd 시맨틱과 그리드 정렬을 한 컴포넌트로 제공합니다.",
+      "상세 설명 문구용 타이포그래피 컴포넌트. 별도 레이아웃 없이 size·weight·color 토큰만으로 제어하는 가장 가벼운 텍스트 단위입니다.",
     features: [
-      "key–value 그리드",
-      "다중 컬럼 옵션",
-      "size 토큰",
-      "value 슬롯 (커스텀 렌더)",
+      "size (l / m / s)",
+      "weight (regular / bold)",
+      "color 토큰 + 임의 색상값",
+      "polymorphic (as 엘리먼트, 기본 span)",
     ],
   },
   badge: {
@@ -351,6 +419,28 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
       "height / rounded 토큰",
       "icon + onIconClick (a11y wrap)",
       "KRDS Outline tinted override",
+    ],
+    designNotes: [
+      {
+        title: "무엇을 만들려 했나 — 기능 범위",
+        body: "Primary·Secondary·Danger 등 화면마다 흩어져 있던 버튼 케이스를 하나로 흡수하는 범용 버튼이 목표였다. variant(solid·outline·text) × color(11종) × size(5단) 매트릭스로, 거의 모든 조합을 prop만으로 표현할 수 있게 설계했다.",
+      },
+      {
+        title: "고려한 타입 설계",
+        body: "variant·color·size를 느슨한 string이 아니라 ButtonVariant·ButtonSemanticColor·ButtonSize 유니온 타입으로 제약해, 잘못된 값을 컴파일 타임에 걸러지게 했다. icon은 ReactNode로 받아 어떤 아이콘이든 주입할 수 있게, iconPosition으로 좌·우 배치를 열어뒀다.",
+      },
+      {
+        title: "로딩 상태 — 특히 신경 쓴 부분",
+        body: "loading이 켜지면 Spinner를 자동 노출하고 loadingText로 문구를 교체하며, 클릭 이벤트를 막아(preventDefault) 비동기 처리 중 중복 제출을 차단했다. aria-busy로 스크린리더에도 진행 상태를 전달한다.",
+      },
+      {
+        title: "접근성",
+        body: "disabled와 loading을 isDisabled 하나로 통합해 aria-disabled를 부여하고 tabIndex를 -1로 두어 키보드 포커스에서 제외했다. 아이콘만 있는 버튼의 onIconClick도 내부 button 엘리먼트로 감싸 키보드·스크린리더로 조작 가능하게 했다.",
+      },
+      {
+        title: "호환까지 고려한 점",
+        body: "새 패턴을 도입하면서도 기존 화면이 쓰던 옛 명칭(primary, s·m·l 등)을 내부 normalize 레이어에서 신규 패턴으로 매핑해, 수많은 사용처를 한 번에 고치지 않아도 깨지지 않게 했다.",
+      },
     ],
   },
   "file-upload": {
@@ -499,4 +589,8 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
 };
 
-export const getComponentDoc = (slug: string) => COMPONENT_DOCS[slug];
+export const getComponentDoc = (slug: string): ComponentDoc | undefined => {
+  const doc = COMPONENT_DOCS[slug];
+  if (!doc) return undefined;
+  return { ...doc, designNotes: DESIGN_NOTES[slug] ?? doc.designNotes };
+};

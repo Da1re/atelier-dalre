@@ -1,9 +1,8 @@
-import { getComponentChanges } from "@/models/design-system-changes";
 import {
   ALL_COMPONENTS,
   COMPONENT_GROUPS,
-  STORYBOOK_URL,
   getComponentBySlug,
+  isMigrated,
 } from "@/models/design-system-data";
 import { getComponentDoc } from "@/models/design-system-docs";
 import type { Metadata } from "next";
@@ -29,22 +28,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const CATEGORY_TONES: Record<string, string> = {
-  Props: "border-blue-500/20 text-blue-600 dark:text-blue-400",
-  API: "border-blue-500/20 text-blue-600 dark:text-blue-400",
-  A11y: "border-emerald-500/20 text-emerald-600 dark:text-emerald-400",
-  Style: "border-violet-500/20 text-violet-600 dark:text-violet-400",
-  Storybook: "border-orange-500/20 text-orange-600 dark:text-orange-400",
-  Migration: "border-rose-500/20 text-rose-600 dark:text-rose-400",
-  Tokens: "border-amber-500/20 text-amber-600 dark:text-amber-400",
-};
-
 export default async function DesignDetailPage({ params }: Props) {
   const { slug } = await params;
   const comp = getComponentBySlug(slug);
   if (!comp) notFound();
 
-  const v2 = getComponentChanges(slug);
+  const migrated = isMigrated(slug);
   const doc = getComponentDoc(slug);
   const groupOf = COMPONENT_GROUPS.find((g) =>
     g.components.some((c) => c.slug === slug),
@@ -87,7 +76,7 @@ export default async function DesignDetailPage({ params }: Props) {
               <span className="w-1.5 h-1.5 rounded-full bg-primary" />
               original
             </span>
-          ) : v2 ? (
+          ) : migrated ? (
             <span className="inline-flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-1 rounded-full bg-foreground/5 text-foreground/70 border border-foreground/15">
               <span className="w-1.5 h-1.5 rounded-full border-[1.5px] border-foreground/40" />
               migrated
@@ -104,11 +93,6 @@ export default async function DesignDetailPage({ params }: Props) {
         <p className="text-base md:text-lg text-foreground/60 leading-[1.6]">
           {comp.desc}
         </p>
-        {v2 && (
-          <p className="text-sm text-foreground/40 mt-3 font-mono">
-            {v2.summary}
-          </p>
-        )}
       </div>
 
       {/* Overview + Features */}
@@ -143,64 +127,39 @@ export default async function DesignDetailPage({ params }: Props) {
         </div>
       )}
 
-      {/* 변경 내역 */}
-      {v2 ? (
-        <div className="flex flex-col gap-10 mb-16">
-          <h2 className="text-[11px] tracking-[2px] uppercase text-foreground/40 font-medium">
-            v2.0 Changelog
-          </h2>
-          {v2.changes.map((group) => (
-            <section key={group.category}>
-              <div className="flex items-center gap-3 mb-5">
-                <span
-                  className={[
-                    "inline-flex items-center text-[12px] font-medium px-2.5 py-1 rounded-full border bg-background",
-                    CATEGORY_TONES[group.category] ||
-                      "border-foreground/15 text-foreground/60",
-                  ].join(" ")}
-                >
-                  {group.category}
-                </span>
-                <span className="text-xs text-foreground/30 font-mono">
-                  {group.items.length}건
-                </span>
-              </div>
-              <ul className="flex flex-col gap-3 pl-1">
-                {group.items.map((item, i) => (
-                  <li
-                    key={i}
-                    className="flex gap-3 text-[15px] text-foreground/80 leading-[1.7]"
-                  >
-                    <span className="text-foreground/30 mt-[10px] shrink-0">
-                      <span className="block w-1 h-1 rounded-full bg-current" />
-                    </span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
-        </div>
-      ) : (
-        doc && (
-          <div className="mb-16 p-5 rounded-[10px] border border-foreground/10 bg-foreground/2">
-            <p className="text-xs text-foreground/50">
-              v2.0 작업 범위 외 — 별도의 변경 내역이 정리되지 않은 컴포넌트입니다.
-            </p>
+      {/* 설계 노트 */}
+      {doc?.designNotes && doc.designNotes.length > 0 && (
+        <div className="mb-16 pb-12 border-b border-foreground/10">
+          <div className="flex items-baseline gap-3 mb-8">
+            <h2 className="text-[11px] tracking-[2px] uppercase text-foreground/40 font-medium">
+              설계 노트
+            </h2>
+            <span className="text-[11px] text-foreground/30 font-mono">
+              Design Decisions
+            </span>
           </div>
-        )
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {doc.designNotes.map((note, i) => (
+              <div
+                key={i}
+                className="rounded-[14px] border border-foreground/10 bg-foreground/2 p-6 md:p-7"
+              >
+                <div className="flex items-center gap-3 mb-3.5">
+                  <span className="flex items-center justify-center w-7 h-7 rounded-full bg-primary/10 text-primary text-[12px] font-semibold tabular-nums shrink-0">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="text-[15px] md:text-base font-semibold text-foreground leading-snug">
+                    {note.title}
+                  </h3>
+                </div>
+                <p className="text-[14px] text-foreground/65 leading-[1.85]">
+                  {note.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       )}
-
-      {/* Storybook 링크 */}
-      <a
-        href={`${STORYBOOK_URL}/?path=/docs/${comp.story}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 text-[13px] font-semibold px-5 py-3 rounded-full bg-foreground text-background hover:bg-foreground/80 transition-colors"
-      >
-        Storybook 에서 보기
-        <span aria-hidden>→</span>
-      </a>
 
       {/* 이전 / 다음 네비 */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-20 pt-10 border-t border-foreground/10">

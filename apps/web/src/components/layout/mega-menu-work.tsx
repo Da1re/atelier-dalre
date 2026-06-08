@@ -8,7 +8,11 @@ interface Props {
   onItemClick: () => void;
 }
 
-const PREVIEW_SLUGS = ["gwacheon-science", "incheon-education", "scoa-workmate"];
+const PREVIEW_SLUGS = [
+  "gwacheon-science",
+  "incheon-education",
+  "ai-chat-streaming",
+];
 
 const PREVIEW_PROJECTS: Project[] = PREVIEW_SLUGS.map((slug) =>
   PROJECTS.find((p) => p.slug === slug),

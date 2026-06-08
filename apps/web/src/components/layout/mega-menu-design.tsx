@@ -1,10 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import {
-  ALL_COMPONENTS,
-  STORYBOOK_URL,
-} from "@/models/design-system-data";
+import { ALL_COMPONENTS } from "@/models/design-system-data";
 
 interface Props {
   onItemClick: () => void;
@@ -28,7 +25,7 @@ export const MegaMenuDesign = ({ onItemClick }: Props) => {
           <div className="col-span-12 md:col-span-3 flex flex-col justify-between gap-4">
             <div>
               <p className="text-[10px] font-semibold tracking-[3px] uppercase text-foreground/40 mb-2.5">
-                Internal · Storybook
+                Design System
               </p>
               <h3
                 className="font-normal tracking-[-1px] text-foreground leading-[0.95]"
@@ -48,15 +45,6 @@ export const MegaMenuDesign = ({ onItemClick }: Props) => {
               >
                 모두 보기 <span aria-hidden>↗</span>
               </Link>
-              <a
-                href={STORYBOOK_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={onItemClick}
-                className="inline-flex items-center gap-2 text-[12px] font-semibold tracking-[1px] uppercase text-foreground hover:opacity-60 transition-opacity border-b border-foreground/30 pb-1"
-              >
-                Storybook <span aria-hidden>↗</span>
-              </a>
             </div>
           </div>
 

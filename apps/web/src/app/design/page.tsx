@@ -1,9 +1,8 @@
-import { getComponentChanges } from "@/models/design-system-changes";
 import {
   ALL_COMPONENTS,
   COMPONENT_GROUPS,
-  STORYBOOK_URL,
   TOKEN_GROUPS,
+  isMigrated,
 } from "@/models/design-system-data";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -18,7 +17,7 @@ export default function DesignPage() {
   const totalCount = ALL_COMPONENTS.length;
   const mineCount = ALL_COMPONENTS.filter((c) => c.mine).length;
   const migratedCount = ALL_COMPONENTS.filter(
-    (c) => !c.mine && getComponentChanges(c.slug),
+    (c) => !c.mine && isMigrated(c.slug),
   ).length;
 
   return (
@@ -40,7 +39,7 @@ export default function DesignPage() {
             >
               design-system
             </h1>
-            <p className="text-base text-foreground/60 max-w-xl leading-[1.8]">
+            <p className="text-base text-foreground/60 max-w-2xl leading-[1.8] break-keep">
               <Link
                 href="https://www.krds.go.kr/html/site/index.html"
                 target="_blank"
@@ -65,15 +64,22 @@ export default function DesignPage() {
               </span>
             </div>
           </div>
-          <a
-            href={STORYBOOK_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="shrink-0 inline-flex items-center gap-2 text-[13px] font-semibold px-5 py-2.5 rounded-full border border-foreground/15 text-foreground hover:bg-foreground hover:text-background transition-colors mb-1"
-          >
-            Storybook 열기 →
-          </a>
         </div>
+      </div>
+
+      {/* UX/DX 기여 — 디자인 너머의 설계 */}
+      <div className="mb-16 border-l-2 border-primary/40 pl-5 md:pl-7">
+        <p className="text-[11px] tracking-[2px] uppercase text-primary/80 font-medium mb-3">
+          Design → Development
+        </p>
+        <p className="text-[15px] md:text-base text-foreground/75 leading-[1.85] max-w-3xl break-keep">
+          디자인 시안은 정적인 UI를 정의하지만, 실제 사용성은 그 사이의 상태와
+          흐름에서 결정된다. 로딩·에러·빈 값·비활성 같은 상태 전이, 키보드·스크린리더
+          접근성, 입력 중 커서·포커스 이동, 그리고 사용처가 흔들리지 않는 API
+          설계까지 — UI 너머의 UX/DX는 구현 단계에서 직접 설계했다. 각 컴포넌트의{" "}
+          <span className="text-foreground font-medium">설계 노트</span>에 그
+          의사결정을 정리했다.
+        </p>
       </div>
 
       <div className="mb-20">
@@ -168,7 +174,7 @@ export default function DesignPage() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {group.components.map((comp) => {
-                const hasV2 = !!getComponentChanges(comp.slug);
+                const hasV2 = isMigrated(comp.slug);
                 const kind = comp.mine
                   ? "original"
                   : hasV2
