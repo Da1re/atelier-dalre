@@ -1,11 +1,12 @@
 "use client";
 
+import { useHideOnScroll } from "@/hooks/use-hide-on-scroll";
+import { useMegaMenu } from "@/hooks/use-mega-menu";
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useMegaMenu } from "@/hooks/use-mega-menu";
 import { MegaMenuDesign } from "./mega-menu-design";
 import { MegaMenuWork } from "./mega-menu-work";
 import { ThemeToggle } from "./theme-toggle";
@@ -31,6 +32,7 @@ export const Header = () => {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const { activeMenu, openMenu, scheduleClose, closeNow } = useMegaMenu();
+  const hidden = useHideOnScroll();
 
   const isActive = (path: string) =>
     path === "/" ? pathname === "/" : pathname.startsWith(path);
@@ -55,7 +57,14 @@ export const Header = () => {
   };
 
   return (
-    <header className="fixed top-3 md:top-4 left-3 md:left-10 right-3 md:right-10 z-50">
+    <header
+      className={clsx(
+        "fixed top-3 md:top-4 left-3 md:left-10 right-3 md:right-10 z-50 transition-transform duration-700 ease-out will-change-transform",
+        hidden && !menuOpen && !activeMenu
+          ? "translate-y-[-200%]"
+          : "translate-y-0",
+      )}
+    >
       <div
         onMouseLeave={scheduleClose}
         className={clsx(
@@ -66,11 +75,7 @@ export const Header = () => {
         )}
       >
         <div className="px-5 md:px-10 py-4 md:py-5 flex justify-between items-center">
-          <Link
-            href="/"
-            className="w-37.5 shrink-0"
-            onClick={closeNow}
-          >
+          <Link href="/" className="w-37.5 shrink-0" onClick={closeNow}>
             <span className="py-0 px-px">
               <Image
                 src="/images/logo/main-logo.png"
