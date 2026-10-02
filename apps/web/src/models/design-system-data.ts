@@ -17,6 +17,10 @@ export interface DesignComponentGroup {
   components: DesignComponent[];
 }
 
+// 패키지로 분리하면서 제거한 타이포 래퍼 4종(Display·Title·Body·Detail)이 같은 사유를 공유한다
+const TYPO_RETIRED_NOTE =
+  "패키지로 분리하면서 타이포 래퍼를 제거하고 토큰·유틸 클래스로 대체";
+
 // ─── 컴포넌트 그룹 ─────────────────────────────────────────
 export const COMPONENT_GROUPS: DesignComponentGroup[] = [
   {
@@ -29,15 +33,13 @@ export const COMPONENT_GROUPS: DesignComponentGroup[] = [
         desc: "최상위 대형 헤드라인",
         mine: true,
         status: "retired",
-        statusNote: "패키지 1.0에서 타이포 래퍼를 제거하고 토큰·유틸 클래스로 대체",
+        statusNote: TYPO_RETIRED_NOTE,
       },
       {
         slug: "heading",
         name: "Heading",
         desc: "섹션 제목 계층 (h1–h6)",
         mine: true,
-        status: "retired",
-        statusNote: "패키지 1.0에서 타이포 래퍼를 제거하고 토큰·유틸 클래스로 대체",
       },
       {
         slug: "title",
@@ -45,7 +47,7 @@ export const COMPONENT_GROUPS: DesignComponentGroup[] = [
         desc: "카드·패널 타이틀",
         mine: true,
         status: "retired",
-        statusNote: "패키지 1.0에서 타이포 래퍼를 제거하고 토큰·유틸 클래스로 대체",
+        statusNote: TYPO_RETIRED_NOTE,
       },
       {
         slug: "body",
@@ -53,7 +55,15 @@ export const COMPONENT_GROUPS: DesignComponentGroup[] = [
         desc: "본문 텍스트 사이즈 시스템",
         mine: true,
         status: "retired",
-        statusNote: "패키지 1.0에서 타이포 래퍼를 제거하고 토큰·유틸 클래스로 대체",
+        statusNote: TYPO_RETIRED_NOTE,
+      },
+      {
+        slug: "detail",
+        name: "Detail",
+        desc: "상세 설명용 보조 텍스트",
+        mine: true,
+        status: "retired",
+        statusNote: TYPO_RETIRED_NOTE,
       },
       {
         slug: "label",
@@ -203,12 +213,6 @@ export const COMPONENT_GROUPS: DesignComponentGroup[] = [
         slug: "mtable",
         name: "MTable",
         desc: "모바일 반응형 테이블",
-      },
-      {
-        slug: "detail",
-        name: "Detail",
-        desc: "키-값 상세 정보 레이아웃",
-        mine: true,
       },
       {
         slug: "badge",

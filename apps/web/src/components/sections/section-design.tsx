@@ -108,7 +108,7 @@ export function SectionDesign() {
                   <p className="text-[15px] md:text-base font-normal tracking-[-0.3px] text-foreground mb-1">
                     {comp.name}
                   </p>
-                  <p className="text-[11px] md:text-[12px] text-foreground/50 leading-normal">
+                  <p className="text-[11px] md:text-[12px] text-foreground/50 leading-normal line-clamp-2 min-h-[2lh]">
                     {comp.desc}
                   </p>
                 </div>

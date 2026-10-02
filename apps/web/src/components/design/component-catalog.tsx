@@ -1,11 +1,16 @@
-import { COMPONENT_GROUPS } from "@/models/design-system-data";
+import {
+  COMPONENT_GROUPS,
+  type ComponentBadge,
+} from "@/models/design-system-data";
+import clsx from "clsx";
 import { ComponentCard } from "./component-card";
+import { BADGE_DOT_CLASS, BADGE_LABEL } from "./status-badge";
 
-const LEGEND = [
-  { dot: "bg-primary", label: "직접 설계·구현" },
-  { dot: "border-[1.5px] border-foreground/40", label: "가이드 패턴으로 재설계" },
-  { dot: "bg-foreground/25", label: "패키지화에서 제거" },
-  { dot: "bg-amber-500/70", label: "deprecated" },
+const LEGEND: ComponentBadge[] = [
+  "original",
+  "migrated",
+  "retired",
+  "deprecated",
 ];
 
 export function ComponentCatalog() {
@@ -16,13 +21,15 @@ export function ComponentCatalog() {
           Components
         </h2>
         <ul className="flex flex-wrap gap-x-4 gap-y-2">
-          {LEGEND.map((item) => (
+          {LEGEND.map((kind) => (
             <li
-              key={item.label}
+              key={kind}
               className="inline-flex items-center gap-2 text-xs text-foreground/50"
             >
-              <span className={`w-2 h-2 rounded-full ${item.dot}`} />
-              {item.label}
+              <span
+                className={clsx("w-2 h-2 rounded-full", BADGE_DOT_CLASS[kind])}
+              />
+              {BADGE_LABEL[kind]}
             </li>
           ))}
         </ul>

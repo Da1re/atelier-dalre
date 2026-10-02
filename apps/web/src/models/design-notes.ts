@@ -4,20 +4,7 @@ import type { DesignNote } from "./design-system-docs";
 // mine(직접 구현)은 기능·타입·상태 설계 중심, migrated(마이그레이션)는 정규화·호환 중심.
 export const DESIGN_NOTES: Record<string, DesignNote[]> = {
   // ─── Typography ─────────────────────────────────────────
-  display: [
-    {
-      title: "사이즈 토큰만 노출한 디스플레이 텍스트",
-      body: "가장 큰 시각 위계의 텍스트를 담당하는 컴포넌트로, size를 'l' | 'm' | 's' 세 단계로만 제한해 디자인 토큰 밖의 임의 크기가 들어오지 못하게 했다. 굵기는 항상 bold로 고정하고, 600px 이하에서는 미디어 쿼리로 폰트 크기를 한 단계씩 축소해 모바일 가독성을 확보했다.",
-    },
-    {
-      title: "토큰과 임의 색상을 모두 받는 color prop",
-      body: "color를 string 타입으로 열어두고, 값이 디자인 토큰 객체(colors)의 키이면 getColor로 실제 색상값을 조회하고 아니면 전달받은 문자열을 그대로 인라인 스타일에 적용했다. 토큰 우선 사용을 유도하면서도 예외 상황의 직접 색상 지정을 막지 않는 절충안으로 설계했다.",
-    },
-    {
-      title: "제네릭 ElementType과 나머지 props 전달",
-      body: "DisplayProps를 제네릭 E extends React.ElementType으로 정의하고 ComponentPropsWithoutRef<E>를 교차해, 표준 HTML 속성을 타입 안전하게 받도록 했다. 렌더링 태그는 h1로 고정하되 나머지 props는 스프레드로 흘려보내 확장성을 남겼다.",
-    },
-  ],
+  // retired 래퍼(Display·Title·Body·Detail)는 지워진 코드의 내부 설계라 노트를 두지 않는다
   heading: [
     {
       title: "레벨 숫자로 시맨틱 태그를 생성",
@@ -30,34 +17,6 @@ export const DESIGN_NOTES: Record<string, DesignNote[]> = {
     {
       title: "표준 HTML 속성 수용",
       body: "HeadingProps에 React.HTMLAttributes<HTMLElement>를 교차해 id, aria-* 등 일반 속성을 그대로 받도록 하고, 색상은 Display와 동일하게 토큰 키 또는 임의 색상값을 분기 처리하는 공통 패턴을 따랐다.",
-    },
-  ],
-  title: [
-    {
-      title: "숫자·키워드 혼합 사이즈 스케일",
-      body: "size를 1 | 2 숫자와 'xs'부터 'xxl'까지의 키워드를 함께 받도록 설계했다. 숫자 사이즈는 line-height까지 포함한 정형 스타일을, 키워드 사이즈는 rem 기반의 시각 위계를 제공해 정형 텍스트와 자유 크기 제목을 한 컴포넌트로 함께 다루도록 했다.",
-    },
-    {
-      title: "굵기를 분리한 weight prop",
-      body: "weight를 'bold' | 'semi-bold' | 'medium' | 'regular'로 받아 폰트 굵기를 클래스로 분리했다. 크기와 굵기를 독립 prop으로 떼어, 같은 사이즈에서도 강조 정도를 자유롭게 조합할 수 있게 했다.",
-    },
-    {
-      title: "제네릭 타입과 고정 태그",
-      body: "TitleProps를 제네릭 ElementType으로 정의해 HTML 속성을 타입 안전하게 받되, 실제 렌더 태그는 기본 의미 위계에 맞춰 h3로 고정했다. 색상은 토큰 키/임의 값 분기 처리를 공통 적용했다.",
-    },
-  ],
-  body: [
-    {
-      title: "size와 weight를 나눈 본문 스케일",
-      body: "본문 텍스트용으로 size를 1 | 2 두 단계, weight를 'regular' | 'semibold' | 'bold' 세 단계로 분리해 클래스로 조합했다. 크기와 굵기를 독립적으로 지정할 수 있어 본문 안의 강조 텍스트까지 같은 컴포넌트로 표현하게 했다.",
-    },
-    {
-      title: "children과 label의 폴백 처리",
-      body: "내용을 children 또는 label 둘 중 하나로 받을 수 있게 하고, children이 있으면 children을, 없으면 label을 렌더링하도록 폴백을 두었다. JSX 자식과 문자열 prop 두 가지 사용 방식을 모두 수용하기 위한 설계다.",
-    },
-    {
-      title: "p 태그 기반과 공통 색상 처리",
-      body: "본문 성격에 맞춰 p 태그로 렌더링하고, color는 토큰 키이면 getColor로 변환하고 아니면 임의 색상값을 그대로 적용하는 타이포 컴포넌트 공통 패턴을 따랐다.",
     },
   ],
 
@@ -310,20 +269,6 @@ export const DESIGN_NOTES: Record<string, DesignNote[]> = {
   ],
 
   // ─── Data Display ───────────────────────────────────────
-  detail: [
-    {
-      title: "가장 가벼운 보조 텍스트 단위",
-      body: "상세 설명 문구를 표현하는 타이포그래피 컴포넌트로, 별도 레이아웃 없이 span 한 요소로 텍스트의 크기(size)·두께(weight)·색상(color)만 토큰화해 제어하는 가장 가벼운 단위로 설계했다. 스토리 분류도 Typography/Detail로 두어 본문 보조 텍스트 용도임을 분명히 했다.",
-    },
-    {
-      title: "다형(polymorphic) 타입 설계",
-      body: "size는 'l'|'m'|'s', weight는 'regular'|'bold'로 좁혀 각각 CSS Module 클래스에 매핑했다. 제네릭 E extends React.ElementType을 두고 DetailProps<E>를 ComponentPropsWithoutRef<E>와 교차시켜, 기본 'span' 위에 임의 엘리먼트의 네이티브 속성까지 받을 수 있는 다형 시그니처를 만들었다.",
-    },
-    {
-      title: "색상 처리와 고민",
-      body: "color를 디자인 토큰 키와 임의 CSS 색상값 양쪽으로 받게 해, color in colors로 토큰 키 여부를 판별하고 키이면 getColor로 해석, 아니면 문자열을 그대로 인라인 style에 넣었다. 클래스 합성 끝에 .trim()으로 꼬리 공백을 정리했지만, 색상을 인라인 style로 주입하는 방식은 CSS 변수 기반 테마 전환과 분리된다는 trade-off가 있었다.",
-    },
-  ],
   icon: [
     {
       title: "단일 진입점으로 모은 아이콘 시스템",
