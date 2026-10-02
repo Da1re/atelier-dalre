@@ -38,7 +38,7 @@ export function DesignHero() {
         같은 원본을 설치해 쓰고 있습니다. 위는 그 과정에서 내린 판단, 아래는
         컴포넌트 하나하나의 설계 노트입니다.
       </p>
-      <div className="grid grid-cols-3 gap-3 mt-10 max-w-xl">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-10 max-w-xl">
         {STATS.map((stat) => (
           <div
             key={stat.label}
