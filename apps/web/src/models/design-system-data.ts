@@ -19,6 +19,9 @@ export interface ComponentV2 {
   changes: ChangeGroup[];
 }
 
+export type ComponentStatus = "retired" | "deprecated";
+export type ComponentBadge = "original" | "migrated" | ComponentStatus;
+
 export interface DesignComponent {
   slug: string;
   name: string;
@@ -26,6 +29,9 @@ export interface DesignComponent {
   story: string;
   mine?: boolean; // 처음부터 끝까지 본인이 만든 컴포넌트
   v2?: ComponentV2; // v2.0 작업 내역
+  status?: ComponentStatus;
+  /** retired·deprecated 사유 한 줄 — 카드와 상세 헤더에 노출 */
+  statusNote?: string;
 }
 
 export interface DesignComponentGroup {
@@ -110,6 +116,8 @@ export const COMPONENT_GROUPS: DesignComponentGroup[] = [
         desc: "최상위 대형 헤드라인",
         story: "components-display--docs",
         mine: true,
+        status: "retired",
+        statusNote: "패키지 1.0에서 타이포 래퍼를 제거하고 토큰·유틸 클래스로 대체",
       },
       {
         slug: "heading",
@@ -117,6 +125,8 @@ export const COMPONENT_GROUPS: DesignComponentGroup[] = [
         desc: "섹션 제목 계층 (h1–h6)",
         story: "components-heading--docs",
         mine: true,
+        status: "retired",
+        statusNote: "패키지 1.0에서 타이포 래퍼를 제거하고 토큰·유틸 클래스로 대체",
       },
       {
         slug: "title",
@@ -124,6 +134,8 @@ export const COMPONENT_GROUPS: DesignComponentGroup[] = [
         desc: "카드·패널 타이틀",
         story: "components-title--docs",
         mine: true,
+        status: "retired",
+        statusNote: "패키지 1.0에서 타이포 래퍼를 제거하고 토큰·유틸 클래스로 대체",
       },
       {
         slug: "body",
@@ -131,6 +143,8 @@ export const COMPONENT_GROUPS: DesignComponentGroup[] = [
         desc: "본문 텍스트 사이즈 시스템",
         story: "components-body--docs",
         mine: true,
+        status: "retired",
+        statusNote: "패키지 1.0에서 타이포 래퍼를 제거하고 토큰·유틸 클래스로 대체",
       },
       {
         slug: "label",
@@ -345,7 +359,7 @@ export const COMPONENT_GROUPS: DesignComponentGroup[] = [
       {
         slug: "button",
         name: "Button",
-        desc: "Primary / Secondary / Danger 등 variant 시스템",
+        desc: "variant(모양) × color × size 매트릭스",
         story: "components-button--docs",
         mine: true,
       },
@@ -391,6 +405,15 @@ export const COMPONENT_GROUPS: DesignComponentGroup[] = [
         name: "Alert",
         desc: "인라인 알림 메시지",
         story: "components-alert--docs",
+        status: "deprecated",
+        statusNote: "InfoBox로 통합. 기존 사용처가 깨지지 않도록 별칭을 남김",
+      },
+      {
+        slug: "infobox",
+        name: "InfoBox",
+        desc: "정보 안내 박스 — 7색 체계",
+        story: "components-infobox--docs",
+        mine: true,
       },
       {
         slug: "toast-bar",
@@ -457,3 +480,25 @@ export const ALL_COMPONENTS: DesignComponent[] = COMPONENT_GROUPS.flatMap(
 
 export const getComponentBySlug = (slug: string) =>
   ALL_COMPONENTS.find((c) => c.slug === slug);
+
+// ─── 마이그레이션(가이드 패턴 재설계) 대상 슬러그 ─────────────
+export const MIGRATED_SLUGS = new Set<string>([
+  "button", "badge", "tag", "chip",
+  "text-input", "number-input", "phone-input", "tel-input", "textarea",
+  "select", "checkbox", "radio", "toggle", "link",
+  "single-date-picker", "range-date-picker", "custom-date-picker", "time-selector",
+  "accordion", "tab", "breadcrumb", "pagination", "modal",
+  "file-upload", "file-button-upload", "alert", "toast-bar", "tooltip",
+  "carousel", "step-indicator", "search-box",
+]);
+
+export const isMigrated = (slug: string) => MIGRATED_SLUGS.has(slug);
+
+// 카드·상세 헤더가 같은 순서로 배지를 그리도록 한 곳에서 계산한다
+export function getComponentBadges(comp: DesignComponent): ComponentBadge[] {
+  const badges: ComponentBadge[] = [];
+  if (comp.mine) badges.push("original");
+  if (!comp.mine && isMigrated(comp.slug)) badges.push("migrated");
+  if (comp.status) badges.push(comp.status);
+  return badges;
+}
