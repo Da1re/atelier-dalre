@@ -322,12 +322,27 @@ export const COMPONENT_GROUPS: DesignComponentGroup[] = [
         name: "ErrorPage",
         desc: "에러 상태 페이지",
       },
+      {
+        slug: "not-found-page",
+        name: "NotFoundPage",
+        desc: "404 페이지",
+      },
+      {
+        slug: "progress-bar",
+        name: "ProgressBar",
+        desc: "문항·단계 진행률 표시",
+      },
     ],
   },
   {
     category: "Layout",
     description: "페이지 구조를 잡는 레이아웃 컴포넌트",
     components: [
+      {
+        slug: "drawer",
+        name: "Drawer",
+        desc: "상하좌우에서 밀려 나오는 패널",
+      },
       {
         slug: "masthead",
         name: "Masthead",

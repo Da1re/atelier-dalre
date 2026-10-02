@@ -590,7 +590,36 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
     ],
   },
 
+  "not-found-page": {
+    overview:
+      "없는 경로로 들어왔을 때 보여 주는 404 화면. 이동 방식은 앱마다 라우터가 다르므로 '홈으로' 버튼의 동작만 onClick으로 받습니다.",
+    features: [
+      "onClick 하나로 라우터 이동 위임",
+      "ErrorPage와 같은 레이아웃 톤",
+      "오타였던 옛 이름은 별칭으로 유지",
+    ],
+  },
+  "progress-bar": {
+    overview:
+      "설문·신청서처럼 문항을 차례로 채우는 화면에서 전체 대비 완료 비율을 보여 주는 막대.",
+    features: [
+      "length(전체) / currentProgress(완료) 두 값만 받음",
+      "비율 계산은 컴포넌트 내부",
+      "className 확장",
+    ],
+  },
+
   // ─── Layout ──────────────────────────────────────────────
+  drawer: {
+    overview:
+      "화면 가장자리에서 밀려 나오는 패널. 모바일 바텀시트와 PC 사이드 패널을 같은 컴포넌트로 다룹니다.",
+    features: [
+      "position (top / bottom / left / right)",
+      "open + setOpen 제어 컴포넌트",
+      "title 슬롯 (생략 시 제목 줄 없음)",
+      "Portal 기반 렌더링",
+    ],
+  },
   masthead: {
     overview:
       "페이지 상단 마스트헤드 영역. 타이틀, breadcrumb, 액션 버튼을 한 단위로 묶어 일관된 헤더 레이아웃을 잡습니다.",
