@@ -5,6 +5,7 @@ import {
 } from "@/models/design-system-data";
 import clsx from "clsx";
 import Link from "next/link";
+import { BADGE_DOT_CLASS } from "./status-badge";
 
 interface ComponentCardProps {
   component: DesignComponent;
@@ -31,13 +32,6 @@ const NAME_CLASS: Record<CardTone, string> = {
   plain: "text-foreground group-hover:text-foreground/70",
 };
 
-const DOT_CLASS: Record<ComponentBadge, string> = {
-  original: "bg-primary",
-  migrated: "border-[1.5px] border-foreground/40",
-  retired: "bg-foreground/25",
-  deprecated: "bg-amber-500/70",
-};
-
 export function ComponentCard({ component }: ComponentCardProps) {
   const badges = getComponentBadges(component);
   // 상태(retired·deprecated)가 있으면 그것이 카드 톤을 결정한다
@@ -56,7 +50,7 @@ export function ComponentCard({ component }: ComponentCardProps) {
         {badges.map((b) => (
           <span
             key={b}
-            className={clsx("w-1.5 h-1.5 rounded-full", DOT_CLASS[b])}
+            className={clsx("w-1.5 h-1.5 rounded-full", BADGE_DOT_CLASS[b])}
           />
         ))}
       </span>

@@ -8,6 +8,7 @@ import {
   getComponentBySlug,
 } from "@/models/design-system-data";
 import { getComponentDoc } from "@/models/design-system-docs";
+import clsx from "clsx";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -45,6 +46,7 @@ export default async function DesignDetailPage({ params }: Props) {
   if (!comp) notFound();
 
   const doc = getComponentDoc(slug);
+  const notes = doc?.designNotes ?? [];
   const badges = getComponentBadges(comp);
   const groupOf = COMPONENT_GROUPS.find((g) =>
     g.components.some((c) => c.slug === slug),
@@ -93,7 +95,13 @@ export default async function DesignDetailPage({ params }: Props) {
         </div>
 
         {doc && (
-          <div className="grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-10 md:gap-16 mb-16 pb-12 border-b border-foreground/10">
+          <div
+            className={clsx(
+              "grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-10 md:gap-16 mb-16",
+              // 노트가 없으면 바로 아래 이전/다음 네비의 border-t와 선이 겹치므로 구분선을 생략한다
+              notes.length > 0 && "pb-12 border-b border-foreground/10",
+            )}
+          >
             <section>
               <h2 className="text-[11px] tracking-[2px] uppercase text-foreground/40 font-medium mb-4">
                 Overview
@@ -121,7 +129,7 @@ export default async function DesignDetailPage({ params }: Props) {
           </div>
         )}
 
-        <DesignNoteList notes={doc?.designNotes ?? []} />
+        <DesignNoteList notes={notes} />
 
         <AdjacentNav prev={toAdjacent(slug, -1)} next={toAdjacent(slug, 1)} />
       </div>
