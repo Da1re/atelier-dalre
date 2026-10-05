@@ -1,16 +1,10 @@
+import { DesignTopicSteps } from "@/components/sections/section-design/design-topic-steps";
 import {
   ALL_COMPONENTS,
   COMPONENT_GROUPS,
-  type DesignComponent,
 } from "@/models/design-system-data";
 import { SYSTEM_TOPICS } from "@/models/design-topics";
 import Link from "next/link";
-
-const FEATURED_SLUGS = ["button", "infobox", "modal", "select"];
-
-const FEATURED: DesignComponent[] = FEATURED_SLUGS.map((slug) =>
-  ALL_COMPONENTS.find((c) => c.slug === slug),
-).filter((c): c is DesignComponent => !!c);
 
 const STATS = [
   { label: "Components", value: ALL_COMPONENTS.length },
@@ -38,19 +32,20 @@ export function SectionDesign() {
 
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-5">
         <Link
-          href="/design"
+          href="/work/design-system-package"
           className="md:col-span-3 group relative rounded-[10px] border border-foreground/10 p-6 md:p-10 flex flex-col justify-between min-h-72 md:min-h-100 overflow-hidden transition-all duration-300 hover:scale-[1.01] hover:z-10"
           style={{
             backgroundColor:
               "color-mix(in srgb, var(--foreground) 4%, transparent)",
           }}
         >
+          <span className="absolute top-0 left-0 right-0 h-1 bg-primary" />
           <div>
             <span className="text-[10px] font-semibold tracking-[3px] uppercase text-primary">
-              ★ Internal · Package
+              ★ Latest · Internal Package
             </span>
             <p className="text-xs font-semibold tracking-[2px] uppercase text-foreground/60 mt-3">
-              KRDS · KWCAG 2.2
+              2026.08 – 2026.10 · KRDS · KWCAG 2.2
             </p>
           </div>
           <div>
@@ -58,12 +53,12 @@ export function SectionDesign() {
               className="font-normal tracking-[-1px] md:tracking-[-3px] leading-[1.05] mb-4 text-foreground group-hover:opacity-70 transition-opacity"
               style={{ fontSize: "clamp(28px, 5vw, 56px)" }}
             >
-              design-system
+              복사가 아니라 설치
             </h3>
             <p className="text-sm md:text-lg leading-[1.6] max-w-2xl text-foreground/70 mb-6">
               레포마다 복사해 가던 디자인시스템을 설치형 패키지로 분리했다.
               <br />
-              설계 판단, 문제 해결, 운영까지 그 과정의 기록.
+              원본은 하나, 소비 프로젝트는 버전을 따라간다.
             </p>
             <div className="flex flex-wrap gap-x-6 md:gap-x-10 gap-y-4">
               {STATS.map((stat) => (
@@ -78,43 +73,22 @@ export function SectionDesign() {
               ))}
             </div>
           </div>
+          <span className="absolute top-6 right-6 md:top-10 md:right-10 text-xl text-foreground/40 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">
+            ↗
+          </span>
         </Link>
 
         <div className="md:col-span-2 flex flex-col gap-3">
-          <ul className="flex flex-wrap gap-2">
-            {SYSTEM_TOPICS.map((topic) => (
-              <li key={topic.slug}>
-                <Link
-                  href={`/design/system/${topic.slug}`}
-                  className="inline-flex items-center text-[12px] px-3 py-1.5 rounded-full border border-primary/20 text-primary hover:bg-primary hover:text-background transition-colors"
-                >
-                  {topic.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="grid grid-cols-2 gap-2.5 md:gap-3 flex-1">
-            {FEATURED.map((comp) => (
-              <Link
-                key={comp.slug}
-                href={`/design/${comp.slug}`}
-                className="group relative rounded-[10px] border border-foreground/10 bg-foreground/3 p-4 md:p-5 hover:border-foreground/25 hover:bg-foreground/6 transition-all flex flex-col justify-between min-h-32"
-              >
-                <span className="absolute top-3.5 right-3.5 w-1.5 h-1.5 rounded-full bg-foreground/30" />
-                <span className="text-[10px] font-semibold tracking-[2px] uppercase text-foreground/40">
-                  Component
-                </span>
-                <div>
-                  <p className="text-[15px] md:text-base font-normal tracking-[-0.3px] text-foreground mb-1">
-                    {comp.name}
-                  </p>
-                  <p className="text-[11px] md:text-[12px] text-foreground/50 leading-normal line-clamp-2 min-h-[2lh]">
-                    {comp.desc}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <p className="text-[11px] font-semibold tracking-[2px] uppercase text-foreground/40">
+            패키지화하면서 내린 판단
+          </p>
+          <DesignTopicSteps />
+          <Link
+            href="/design"
+            className="text-[12px] text-foreground/50 hover:text-primary transition-colors self-end"
+          >
+            컴포넌트 설계 노트 {ALL_COMPONENTS.length}개 →
+          </Link>
         </div>
       </div>
     </section>

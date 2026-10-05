@@ -102,9 +102,14 @@ export const SectionOtherProjects = () => {
 
   return (
     <section className="bg-foreground/5 text-foreground rounded-2xl flex flex-col gap-8 md:gap-12 px-5 md:px-12.5 py-8 md:py-12.5">
-      <h2 className="uppercase font-normal tracking-[-3px] md:tracking-[-5px]" style={{ fontSize: "clamp(48px, 12vw, 100px)" }}>
-        OTHERS
-      </h2>
+      <div>
+        <h2 className="uppercase font-normal tracking-[-3px] md:tracking-[-5px]" style={{ fontSize: "clamp(48px, 12vw, 100px)" }}>
+          Design Works
+        </h2>
+        <p className="text-sm text-foreground/50 mt-2">
+          2023 · 개발 전 단계에서 직접 잡았던 UI/UX 시안과 로고 작업
+        </p>
+      </div>
 
       <ul className="other-projects-list border-t border-foreground">
         {OTHER_PROJECTS.map((project, i) => (
