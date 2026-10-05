@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { PROJECTS } from '@/models/project-data'
+import { RelatedLinks } from './related-links'
 import { RetrospectiveBody } from './retrospective-body'
 
 export function generateStaticParams() {
@@ -149,6 +150,8 @@ export default async function WorkDetailPage({ params }: Props) {
           />
         </div>
       )}
+
+      <RelatedLinks links={project.relatedLinks} />
 
       <div className="px-15 border-t border-foreground/10 pt-10">
         <h2 className="text-[13px] font-semibold tracking-[2px] text-foreground/40 uppercase mb-6">
