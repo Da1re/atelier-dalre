@@ -62,7 +62,7 @@ export function ComponentCard({ component }: ComponentCardProps) {
       >
         {component.name}
       </p>
-      <p className="text-[12px] lg:text-[13px] text-foreground/40 leading-normal">
+      <p className="text-[12px] lg:text-[13px] text-foreground/40 leading-normal text-pretty">
         {component.desc}
       </p>
     </Link>
