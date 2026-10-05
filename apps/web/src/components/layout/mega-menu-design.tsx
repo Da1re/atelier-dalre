@@ -70,16 +70,17 @@ export function MegaMenuDesign({ onItemClick }: MegaMenuDesignProps) {
           </ul>
         </div>
 
-        <div className="col-span-12 md:col-span-6 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        <div className="col-span-12 md:col-span-6 @container">
+          <div className="grid h-full grid-cols-2 auto-rows-fr @2xl:grid-cols-4 gap-3 md:gap-4">
           {FEATURED.map((comp) => (
             <Link
               key={comp.slug}
               href={`/design/${comp.slug}`}
               onClick={onItemClick}
-              className="group relative rounded-[10px] border border-foreground/10 bg-foreground/3 hover:border-foreground/25 hover:bg-foreground/6 p-5 min-h-44 md:min-h-52 flex flex-col justify-between transition-all"
+              className="group relative rounded-[10px] border border-foreground/10 bg-foreground/3 hover:border-foreground/25 hover:bg-foreground/6 p-5 min-h-24 @2xl:min-h-52 flex flex-col justify-end @2xl:justify-between transition-all"
             >
               <span className="absolute top-3.5 right-3.5 w-1.5 h-1.5 rounded-full bg-foreground/30" />
-              <span className="text-[10px] font-semibold tracking-[2px] uppercase text-foreground/40">
+              <span className="hidden @2xl:inline text-[10px] font-semibold tracking-[2px] uppercase text-foreground/40">
                 Component
               </span>
               <div>
@@ -87,12 +88,13 @@ export function MegaMenuDesign({ onItemClick }: MegaMenuDesignProps) {
                   {comp.name}
                 </p>
                 {/* 설명이 한 줄인 카드(Modal)만 이름이 내려앉지 않도록 두 줄 높이를 항상 확보한다 */}
-                <p className="text-[11px] text-foreground/55 leading-normal line-clamp-2 min-h-[2lh]">
+                <p className="text-[11px] text-foreground/55 leading-normal line-clamp-2 min-h-[2lh] text-pretty">
                   {comp.desc}
                 </p>
               </div>
             </Link>
           ))}
+          </div>
         </div>
       </div>
     </div>

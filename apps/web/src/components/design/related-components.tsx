@@ -20,7 +20,7 @@ export function RelatedComponents({ slugs }: RelatedComponentsProps) {
       <h2 className="text-[11px] tracking-[2px] uppercase text-foreground/40 font-medium mb-6">
         관련 컴포넌트
       </h2>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-3">
         {components.map((comp) => (
           <ComponentCard key={comp.slug} component={comp} />
         ))}

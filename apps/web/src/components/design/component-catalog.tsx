@@ -48,7 +48,7 @@ export function ComponentCatalog() {
               </div>
               <p className="text-xs text-foreground/40">{group.description}</p>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-3">
               {group.components.map((comp) => (
                 <ComponentCard key={comp.slug} component={comp} />
               ))}
