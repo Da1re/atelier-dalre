@@ -62,14 +62,14 @@ export const SectionVisual = () => {
           }}
         >
           <span className="rotateText block overflow-hidden">
-            <p>Be natural</p>
+            <p>Build once,</p>
           </span>
           <span className="opacityText block overflow-hidden">
-            <i>more Attention</i>
+            <i>share everywhere.</i>
           </span>
           <div className="grid" style={{ gridTemplateColumns: "auto 75%" }}>
             <span className="rotateText block overflow-hidden self-end">
-              <i>Create</i>
+              <i>Frontend</i>
             </span>
             <span className="opacityText block overflow-hidden self-end">
               <i>Developer</i>
@@ -93,9 +93,9 @@ export const SectionVisual = () => {
           className="opacity font-semibold text-xs md:text-sm tracking-[2.5px] uppercase leading-[1.7] text-foreground/50 mb-12.5"
           style={{ alignSelf: "flex-end" }}
         >
-          Creation, production & distribution of Web.
+          Design systems, monorepos & form architecture.
           <br />
-          <span>In Magazine. And everywhere else.</span>
+          <span>Frontend developer since 2022.</span>
         </h2>
 
         <div className="rotate flex justify-between">

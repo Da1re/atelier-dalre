@@ -1,3 +1,4 @@
+import { SectionOtherProjects } from "@/components/sections/section-other-projects";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { CAREER, CERTIFICATIONS, EDUCATION, SKILLS } from "./models";
@@ -134,7 +135,7 @@ export default function AboutPage() {
       </div>
 
       {/* 학력 */}
-      <div>
+      <div className="mb-20">
         <div className="flex items-center gap-4 mb-8">
           <h2 className="text-[13px] font-semibold tracking-[3px] text-foreground/40 uppercase">
             Education
@@ -169,6 +170,8 @@ export default function AboutPage() {
           ))}
         </ul>
       </div>
+
+      <SectionOtherProjects />
     </div>
   );
 }
