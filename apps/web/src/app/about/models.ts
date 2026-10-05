@@ -49,7 +49,7 @@ export const CERTIFICATIONS = [
   },
   {
     name: "SQL개발자 (SQLD)",
-    issuer: "한국데이터베이스진흥센터",
+    issuer: "한국데이터산업진흥원",
     date: "2024.09",
     pinned: true,
   },
