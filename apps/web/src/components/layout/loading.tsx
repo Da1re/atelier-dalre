@@ -3,10 +3,19 @@
 import Image from "next/image";
 import { useEffect } from "react";
 
+function hasSeenIntro() {
+  try {
+    return sessionStorage.getItem("loadingDone") === "1";
+  } catch {
+    return false;
+  }
+}
+
 export const Loading = () => {
   useEffect(() => {
     const loading = document.querySelector(".loading") as HTMLElement | null;
     if (!loading) return;
+    if (hasSeenIntro()) return;
 
     const rotate = document.querySelectorAll<HTMLElement>(".rotate");
     const opacity = document.querySelectorAll<HTMLElement>(".opacity");
