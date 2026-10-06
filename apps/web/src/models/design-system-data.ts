@@ -1,5 +1,9 @@
 export type ComponentStatus = "retired" | "deprecated";
-export type ComponentBadge = "original" | "migrated" | ComponentStatus;
+export type ComponentBadge =
+  | "original"
+  | "migrated"
+  | "polished"
+  | ComponentStatus;
 
 export interface DesignComponent {
   slug: string;
@@ -190,7 +194,7 @@ export const COMPONENT_GROUPS: DesignComponentGroup[] = [
       {
         slug: "pagination",
         name: "Pagination",
-        desc: "페이지 네이션",
+        desc: "페이지네이션",
       },
       {
         slug: "link",
@@ -379,10 +383,21 @@ export const MIGRATED_SLUGS = new Set<string>([
 export const isMigrated = (slug: string) => MIGRATED_SLUGS.has(slug);
 
 // 카드·상세 헤더가 같은 순서로 배지를 그리도록 한 곳에서 계산한다
+export const POLISHED_SLUGS = new Set<string>([
+  "breadcrumb", "search-box", "carousel", "tooltip", "step-indicator", "alert",
+]);
+
+function getWorkBadge(comp: DesignComponent): ComponentBadge | null {
+  if (comp.mine) return "original";
+  if (POLISHED_SLUGS.has(comp.slug)) return "polished";
+  if (isMigrated(comp.slug)) return "migrated";
+  return null;
+}
+
 export function getComponentBadges(comp: DesignComponent): ComponentBadge[] {
   const badges: ComponentBadge[] = [];
-  if (comp.mine) badges.push("original");
-  if (!comp.mine && isMigrated(comp.slug)) badges.push("migrated");
+  const work = getWorkBadge(comp);
+  if (work) badges.push(work);
   if (comp.status) badges.push(comp.status);
   return badges;
 }

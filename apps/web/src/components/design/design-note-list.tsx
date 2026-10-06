@@ -16,10 +16,10 @@ export function DesignNoteList({
   return (
     <div>
       <div className="flex items-baseline gap-3 mb-8">
-        <h2 className="text-[11px] tracking-[2px] uppercase text-foreground/40 font-medium">
+        <h2 className="text-[11px] tracking-[2px] uppercase text-foreground/55 font-medium">
           {heading}
         </h2>
-        <span className="text-[11px] text-foreground/30 font-mono">
+        <span className="text-[11px] text-foreground/55 font-mono">
           {eyebrow}
         </span>
       </div>

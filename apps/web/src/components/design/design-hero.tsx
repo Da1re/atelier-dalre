@@ -14,14 +14,11 @@ const STATS = [
 export function DesignHero() {
   return (
     <div className="mb-16 border-b border-foreground/10 pb-15">
-      <p className="text-[13px] font-semibold tracking-[3px] text-foreground/40 uppercase mb-4">
-        Design System
-      </p>
       <h1
         className="font-normal tracking-[-2px] md:tracking-[-4px] text-foreground leading-none mb-6"
         style={{ fontSize: "clamp(36px, 7vw, 80px)" }}
       >
-        design-system
+        Design System
       </h1>
       <p className="text-base text-foreground/60 max-w-2xl leading-[1.8]">
         <Link
@@ -31,18 +28,19 @@ export function DesignHero() {
           className="hover:underline hover:text-primary transition-colors font-medium"
         >
           KRDS
-        </Link>{" "}
+        </Link>
         와 접근성(KWCAG 2.2 · WAI-ARIA)을 기준으로 만든 UI 컴포넌트.
         <br />
-        레포마다 복사해 가던 폴더를 설치형 패키지로 분리해, 사내 여러 프로젝트가
-        같은 원본을 설치해 쓰고 있습니다. 위는 그 과정에서 내린 판단, 아래는
-        컴포넌트 하나하나의 설계 노트입니다.
+        2026년 상반기에 개발표준 프레임워크의 공용 디자인시스템 v2.0으로 개편한
+        뒤, 레포마다 복사해 가던 폴더를 설치형 패키지로 분리해 사내 여러
+        프로젝트가 같은 패키지를 설치해 쓰고 있습니다. 위는 그 과정에서 내린
+        판단, 아래는 컴포넌트별 개요와 설계 노트입니다.
       </p>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-10 max-w-xl">
         {STATS.map((stat) => (
           <div
             key={stat.label}
-            className="p-5 rounded-[10px] border border-foreground/10 bg-foreground/2"
+            className="p-5 rounded-[10px] border border-foreground/10 bg-foreground/2 last:col-span-2 sm:last:col-span-1"
           >
             <p className="text-[11px] tracking-[2px] uppercase text-foreground/40 mb-2">
               {stat.label}

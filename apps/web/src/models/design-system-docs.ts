@@ -18,7 +18,7 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   // ─── Typography ──────────────────────────────────────────
   display: {
     overview:
-      "히어로·랜딩 영역의 최상위 헤드라인 컴포넌트. 페이지에서 가장 큰 시각적 위계를 차지하며, 자극적인 첫인상을 책임집니다.",
+      "히어로·랜딩 영역의 최상위 헤드라인 컴포넌트. 페이지에서 가장 큰 시각적 위계를 차지하며, 강한 첫인상을 줍니다.",
     features: [
       "size 토큰 (large / medium / small)",
       "font-weight 옵션 (normal / medium / semibold)",
@@ -28,12 +28,12 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
   heading: {
     overview:
-      "섹션 제목용 헤딩 컴포넌트. h1–h6 의미 태그를 지원하며, 시각적 사이즈와 시맨틱 레벨을 분리해서 SEO·a11y 양쪽에 안전합니다.",
+      "섹션 제목용 헤딩 컴포넌트. size 하나가 시각 크기와 시맨틱 태그(h1–h5)를 함께 정해, 문서 위계에 맞는 태그가 출력됩니다.",
     features: [
-      "h1–h6 시맨틱 레벨",
-      "시각 사이즈 토큰 (level 과 분리)",
-      "weight / color 옵션",
-      "as prop 으로 태그 오버라이드",
+      "h1–h5 시맨틱 태그 (size 1~5)",
+      "레벨별 font-size·line-height, 600px 이하 재조정",
+      "color 토큰 또는 임의 색상값",
+      "id·aria-* 등 표준 HTML 속성",
     ],
   },
   title: {
@@ -48,7 +48,7 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
   body: {
     overview:
-      "본문 텍스트 스케일 시스템. 가독성을 위해 폰트 사이즈와 line-height 가 토큰으로 정규화되어 있습니다.",
+      "본문 텍스트 스케일 시스템. 가독성을 위해 폰트 사이즈와 line-height가 토큰으로 정규화되어 있습니다.",
     features: [
       "size (xs / sm / base / lg / xl)",
       "weight (regular / medium / semibold)",
@@ -179,7 +179,7 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
   select: {
     overview:
-      "풀 제네릭 드롭다운. T 타입을 그대로 받아서 getLabel / getKey 가 옵셔널 — 표준 필드(label/name/title, id/value/code/key)는 자동 추론합니다.",
+      "풀 제네릭 드롭다운. T 타입을 그대로 받아서 getLabel / getKey가 옵셔널 — 표준 필드(label/name/title, id/value/code/key)는 자동 추론합니다.",
     features: [
       "풀 제네릭 Select<T>",
       "getLabel / getKey 자동 추론",
@@ -201,7 +201,7 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
   radio: {
     overview:
-      "라디오 버튼과 RadioGroup<T>. Checkbox 와 동일한 풀 제네릭 패턴을 따릅니다.",
+      "라디오 버튼과 RadioGroup<T>. Checkbox와 동일한 풀 제네릭 패턴을 따릅니다.",
     features: [
       "RadioGroup<T> 풀 제네릭",
       "color / size prop",
@@ -234,22 +234,22 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   // ─── Date & Time ─────────────────────────────────────────
   "single-date-picker": {
     overview:
-      "단일 날짜 선택 컴포넌트. 27종 pattern 을 지원하고, portal RAF 추적으로 스크롤/리사이즈에도 패널 위치가 정확히 따라갑니다.",
+      "단일 날짜 선택 컴포넌트. 27종 pattern을 지원하고, portal RAF 추적으로 스크롤/리사이즈에도 패널 위치가 정확히 따라갑니다.",
     features: [
       "27종 pattern (YYYY-MM-DD, YYYY-MM, 한글 등)",
       "editable / buttonsDisabled / placeholder[]",
-      "TextInput v1 어댑트",
+      "TextInput v1 기반",
       "portal RAF 위치 추적",
-      "MUI 아이콘 마이그",
+      "MUI 아이콘으로 교체",
     ],
   },
   "range-date-picker": {
     overview:
-      "시작–종료 범위 선택. 두 input 대신 single-box UI 로 통합되어 좁은 영역에서도 자연스럽게 동작합니다.",
+      "시작–종료 범위 선택. 두 input 대신 single-box UI로 통합되어 좁은 영역에서도 자연스럽게 동작합니다.",
     features: [
       "Range single-box UI",
       "pattern 27종 공유",
-      "TextInput v1 어댑트",
+      "TextInput v1 기반",
       "portal RAF 추적",
     ],
   },
@@ -265,13 +265,13 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
   "time-selector": {
     overview:
-      "시·분 시간 선택. AccessTime 아이콘 + readonly TextInput 트리거 패턴으로 인풋과 한 카드처럼 보이며, 패널은 portal + RAF 로 정확히 따라갑니다.",
+      "시·분 시간 선택. AccessTime 아이콘 + readonly TextInput 트리거 패턴으로 인풋과 한 카드처럼 보이며, 패널은 portal + RAF로 정확히 따라갑니다.",
     features: [
       "useAP (오전/오후) 모드",
       "step (1·5·10·15 분)",
       "size 토큰 (small / medium / large)",
       "선택 즉시 onChange",
-      "DatePicker YMS 패턴 커스텀 dropdown",
+      "DatePicker 기반 커스텀 드롭다운",
     ],
   },
   "schedule-calendar": {
@@ -288,7 +288,7 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   // ─── Navigation ──────────────────────────────────────────
   tab: {
     overview:
-      "PC 환경 탭 네비게이션. fill / line variant 와 scaleX 애니메이션 인디케이터를 지원합니다.",
+      "PC 환경 탭 네비게이션. fill / line variant와 scaleX 애니메이션 인디케이터를 지원합니다.",
     features: [
       "variant (fill / line)",
       "color 5종 + size",
@@ -308,7 +308,7 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
   breadcrumb: {
     overview:
-      "현재 경로의 위계를 표시하는 빵부스러기 네비. 마지막 항목은 비활성화되고, 중간 항목은 클릭 가능합니다.",
+      "현재 경로의 위계를 표시하는 브레드크럼 내비게이션. 마지막 항목은 비활성화되고, 중간 항목은 클릭 가능합니다.",
     features: [
       "items 배열",
       "현재 위치 자동 마지막 처리",
@@ -318,17 +318,17 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
   pagination: {
     overview:
-      "페이지 네이션. PC 에서는 페이지 번호 풀 노출, 모바일에서는 ‹ N / Total › 컴팩트 형태로 반응형 동작합니다.",
+      "페이지네이션. 현재 페이지 주변 번호와 처음·마지막 페이지를 보여 주고, 모바일에서는 노출하는 번호 수를 줄입니다.",
     features: [
-      "반응형 (PC full / 모바일 compact)",
-      "currentPage / totalCount / pageSize",
-      "이전 / 다음 / 처음 / 끝",
+      "currentPage / totalPage / onChangePage",
+      "앞·중간·끝 구간별 페이지 윈도우와 생략 표시",
+      "경계에서 이전 / 다음 비활성화",
       "MUI 아이콘",
     ],
   },
   link: {
     overview:
-      "인라인 링크 텍스트 컴포넌트. 외부 링크는 OpenInNew 아이콘과 rel='noopener noreferrer' 가 자동 부착됩니다.",
+      "인라인 링크 텍스트 컴포넌트. 외부 링크는 OpenInNew 아이콘과 rel='noopener noreferrer'가 자동 부착됩니다.",
     features: [
       "color 토큰 9종",
       "target=_blank 시 OpenInNew + 보안 rel 자동",
@@ -355,7 +355,7 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
       "행 → 카드 변환",
       "주요 컬럼 우선 노출",
       "expand / detail",
-      "Table 과 columns 호환",
+      "Table과 columns 호환",
     ],
   },
   detail: {
@@ -380,7 +380,7 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
   tag: {
     overview:
-      "라벨이나 카테고리를 표시하는 태그. 단순 텍스트 / 삭제 가능 두 가지 variant 를 제공합니다.",
+      "라벨이나 카테고리를 표시하는 태그. 단순 텍스트 / 삭제 가능 두 가지 variant를 제공합니다.",
     features: [
       "variant (text / removable)",
       "size (large / medium / small)",
@@ -390,7 +390,7 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
   icon: {
     overview:
-      "프로젝트 전반에서 사용하는 아이콘 시스템. MUI 아이콘과 커스텀 SVG 를 함께 다루며, color / size 토큰을 받습니다.",
+      "프로젝트 전반에서 사용하는 아이콘 시스템. MUI 아이콘과 커스텀 SVG를 함께 다루며, color / size 토큰을 받습니다.",
     features: [
       "MUI + 커스텀 SVG",
       "size 토큰",
@@ -400,11 +400,11 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
   carousel: {
     overview:
-      "이미지 / 카드 슬라이더. 자동 재생, 인디케이터, 화살표 컨트롤을 옵션으로 제공합니다.",
+      "데이터 목록을 한 장씩 넘겨 보는 슬라이더. 자료형과 상관없이 인덱스만 관리하고, 바뀔 때 onChange로 알립니다.",
     features: [
-      "auto-play",
-      "인디케이터 / 화살표",
-      "터치 / 드래그 지원",
+      "제네릭 dataList와 currentIndex",
+      "initialIndex 동기화, 빈 데이터면 렌더하지 않음",
+      "이전 / 다음 버튼 (경계에서 비활성화)",
       "MUI 아이콘 24px 정렬",
     ],
   },
@@ -412,7 +412,7 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   // ─── Actions ─────────────────────────────────────────────
   button: {
     overview:
-      "디자인 시스템의 모든 액션을 책임지는 핵심 컴포넌트. variant × color × size 매트릭스로 거의 모든 케이스를 표현합니다.",
+      "디자인시스템의 모든 액션을 책임지는 핵심 컴포넌트. variant × color × size 매트릭스로 거의 모든 케이스를 표현합니다.",
     features: [
       "variant 3종 (solid / outline / text)",
       "color 11종 + size 5단",
@@ -455,7 +455,7 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
   "file-button-upload": {
     overview:
-      "버튼 형태의 트리거로 파일을 받는 업로드. FileUpload 와 동일 모델을 공유하지만 UI 가 미니멀합니다.",
+      "버튼 형태의 트리거로 파일을 받는 업로드. FileUpload와 동일 모델을 공유하지만 UI가 미니멀합니다.",
     features: [
       "버튼 트리거",
       "파일명 표시 슬롯",
@@ -465,7 +465,7 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
   "step-indicator": {
     overview:
-      "다단계 프로세스의 진행도를 표시하는 인디케이터. 커스텀 SVG 로 단계 마커를 그리고 라벨 정렬을 보정합니다.",
+      "다단계 프로세스의 진행도를 표시하는 인디케이터. 커스텀 SVG로 단계 마커를 그리고 라벨 정렬을 보정합니다.",
     features: [
       "현재 / 완료 / 대기 상태",
       "커스텀 SVG 마커",
@@ -475,12 +475,12 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
   "search-box": {
     overview:
-      "검색용 인풋. 돋보기 아이콘, 클리어, 엔터 검색 등 검색 패턴을 한 컴포넌트로 묶었습니다.",
+      "검색 조건 영역. SearchBox.Row·SearchBox.Column으로 조건 입력을 행·열로 배치하고, 초기화·검색 버튼을 함께 둡니다.",
     features: [
-      "MUI search / clear 아이콘",
-      "엔터 onSearch",
-      "size 토큰",
-      "deleteAction",
+      "Row / Column 합성 구조",
+      "form(role=search) 제출로 onSearch 호출",
+      "Column 라벨과 첫 입력 자동 연결",
+      "MUI 아이콘",
     ],
   },
 
@@ -497,17 +497,17 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
   alert: {
     overview:
-      "인라인 알림 메시지. info / success / warning / danger 색을 가지며, description 영역에서 톤이 자동 매칭됩니다.",
+      "인라인 알림 메시지. variant 하나로 색·강조색·아이콘이 정해집니다. 패키지화 단계에서 InfoBox로 통합되어 지금은 deprecated 별칭입니다.",
     features: [
-      "info / success / warning / danger 톤",
+      "danger / warning / success / information / secondary",
       "title + description",
+      "icon prop으로 아이콘 계열 따로 지정",
       "MUI 아이콘",
-      "dismissible 옵션",
     ],
   },
   infobox: {
     overview:
-      "제목·본문·액션을 담는 정보 안내 박스. 시안에서 하나였던 '인포박스'가 코드에서는 Alert와 InfoBox 둘로 갈라져 있던 것을 이쪽으로 통합했다.",
+      "제목·본문·액션을 담는 정보 안내 박스. 시안에서 하나였던 '인포박스'가 코드에서는 Alert와 InfoBox 둘로 갈라져 있던 것을 이쪽으로 통합했습니다.",
     features: [
       "color 7종 (info / success / warning / danger / navy / gray / primary)",
       "title + description + 액션 슬롯",
@@ -521,7 +521,7 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
       },
       {
         title: "사용처를 세고 나서 바꿨다",
-        body: "통합 전에 소비 프로젝트의 사용처를 실제로 셌다. 한 곳은 InfoBox 46곳에 Alert 0곳이었고, 다른 한 곳은 Alert 19곳에 InfoBox 2곳이었다. 별칭과 prop 호환(surface → color)을 남긴 덕에 46곳은 고칠 게 하나도 없었다.",
+        body: "통합 전에 소비 프로젝트의 사용처를 실제로 셌다. 한 곳은 InfoBox만 수십 곳에서 쓰고 Alert는 쓰지 않았고, 다른 한 곳은 반대로 Alert를 주로 썼다. 별칭과 prop 호환(surface → color)을 남긴 덕에 InfoBox를 쓰던 곳은 고칠 게 하나도 없었다.",
       },
       {
         title: "구분선은 border-style이 아니라 그라디언트로",
@@ -541,17 +541,17 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
   tooltip: {
     overview:
-      "호버시 보이는 짧은 안내 툴팁. 외부 라이브러리 없이 portal + 위치 계산으로 가볍게 동작합니다.",
+      "짧은 안내 툴팁. 단순한 hover 안내는 CSS 툴팁으로, 위치 자동 계산이나 클릭 제어가 필요하면 MUI 기반 툴팁으로 나눠 씁니다.",
     features: [
-      "placement 자동 / 수동",
-      "hover delay",
-      "portal 기반",
-      "MUI 아이콘 (필요 시)",
+      "hover 툴팁 (aria-describedby 연결)",
+      "placement 12종을 MUI placement로 변환",
+      "클릭 툴팁: Escape·바깥 클릭으로 닫힘, 포커스 복귀",
+      "Close 버튼 없이 호버만으로 닫힘",
     ],
   },
   spinner: {
     overview:
-      "로딩 인디케이터. size 와 color 만 받는 작은 컴포넌트.",
+      "로딩 인디케이터. size와 color만 받는 작은 컴포넌트.",
     features: [
       "size 토큰",
       "color 토큰",
@@ -561,7 +561,7 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
   portal: {
     overview:
-      "DOM 트리 외부에 렌더링하는 포털. Modal / DatePicker / TimeSelector 등 모든 떠다니는 UI 의 기반입니다.",
+      "DOM 트리 외부에 렌더링하는 포털. Modal / DatePicker / TimeSelector 등 모든 떠다니는 UI의 기반입니다.",
     features: [
       "root fallback (#app → #root → body)",
       "SSR 안전",
@@ -581,7 +581,7 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
   "error-page": {
     overview:
-      "에러 상태를 한 화면으로 알리는 페이지. 404 / 500 / unknown 같은 케이스를 같은 UI 로 다룹니다.",
+      "에러 상태를 한 화면으로 알리는 페이지. 404 / 500 / unknown 같은 케이스를 같은 UI로 다룹니다.",
     features: [
       "코드 + 메시지 + 액션",
       "재시도 / 홈으로 버튼",
@@ -632,11 +632,11 @@ export const COMPONENT_DOCS: Record<string, ComponentDoc> = {
   },
   accordion: {
     overview:
-      "접기·펼치기 아코디언. plain variant 에는 color prop 으로 톤을 입힐 수 있습니다.",
+      "접기·펼치기 아코디언. items 배열로 패널을 그리고 한 번에 하나만 펼쳐지며, plain variant에는 color prop으로 톤을 입힐 수 있습니다.",
     features: [
-      "plain / outlined variant",
+      "line / plain variant",
       "plain color prop (primary / secondary / blue / navy / gray)",
-      "단일 / 다중 열림",
+      "단일 열림 (같은 항목을 다시 누르면 닫힘)",
       "inert warning 처리",
     ],
   },
