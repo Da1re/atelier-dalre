@@ -3,6 +3,7 @@
 import gsap from "gsap";
 import { useEffect } from "react";
 import { TerminalAnimation } from "./section-in/terminal-animation";
+import { TerminalTape } from "./section-in/terminal-tape";
 
 const STROKE_LINES = [
   { text: "craft.", align: "left" as const },
@@ -200,7 +201,7 @@ export const SectionIn = () => {
   }, []);
 
   return (
-    <section className="section-in relative h-lvh flex flex-col md:justify-center justify-end">
+    <section className="section-in relative h-lvh md:h-auto flex flex-col md:justify-center justify-end [--word-size:clamp(40px,9.5vw,170px)]">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[95%] h-px bg-foreground/25" />
 
       <div className="mainTextBox absolute inset-x-0 top-[12%] md:inset-0 md:top-auto flex flex-col md:justify-center pointer-events-none select-none gap-3 md:gap-6">
@@ -209,7 +210,7 @@ export const SectionIn = () => {
             <p
               className={`font-medium tracking-[-3px] md:tracking-[-6px] ${alignClass[align]}`}
               style={{
-                fontSize: "clamp(40px, 9.5vw, 170px)",
+                fontSize: "var(--word-size)",
                 WebkitTextStroke:
                   "1.5px color-mix(in srgb, var(--foreground), transparent)",
                 color: "transparent",
@@ -220,7 +221,7 @@ export const SectionIn = () => {
             <p
               className={`git-fill absolute inset-0 font-medium tracking-[-3px] md:tracking-[-6px] ${alignClass[align]}`}
               style={{
-                fontSize: "clamp(40px, 9.5vw, 170px)",
+                fontSize: "var(--word-size)",
                 color: "color-mix(in srgb, var(--foreground) 80%, transparent)",
               }}
             >
@@ -230,9 +231,11 @@ export const SectionIn = () => {
         ))}
       </div>
 
-      <div className="relative z-10 flex flex-col items-center px-5 md:px-15 py-8 md:py-16">
-        <div className="w-full md:w-[85%]">
+      <div className="relative z-10 flex flex-col items-center px-5 md:px-15 py-8 md:pt-16 md:pb-[calc(var(--word-size)*1.5+12px)]">
+        <div className="relative w-full md:w-[85%] rotate-[-0.6deg]">
           <TerminalAnimation />
+          <TerminalTape className="-top-[15px] right-[7%] rotate-6" />
+          <TerminalTape className="-bottom-[15px] left-[7%] rotate-[-7deg]" />
         </div>
       </div>
     </section>
