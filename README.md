@@ -1,10 +1,6 @@
 <div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/banner.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="./assets/banner-light.svg" />
-  <img src="./assets/banner-light.svg" alt="Atelier Dalre — be natural" width="100%" />
-</picture>
+<img src="./assets/readme-hero.jpg" alt="Dalre 포트폴리오 메인 화면" width="100%" />
 
 **Frontend Developer 유수빈의 개인 포트폴리오 — 작업·디자인 시스템·회고가 한곳에 모이는 작업실.**
 
