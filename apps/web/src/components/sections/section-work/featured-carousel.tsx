@@ -5,6 +5,7 @@ import { CAROUSEL_PROJECTS } from "@/models/project-data";
 import { useEffect, useRef, type KeyboardEvent } from "react";
 import { CarouselControls } from "./carousel-controls";
 import { CarouselSlide } from "./carousel-slide";
+import { getTrackStep, moveTrack } from "./carousel-track";
 
 export function FeaturedCarousel() {
   const count = CAROUSEL_PROJECTS.length;
@@ -12,24 +13,25 @@ export function FeaturedCarousel() {
     useCarouselAutoplay({ count });
   const trackRef = useRef<HTMLDivElement>(null);
   const settleRef = useRef<number | undefined>(undefined);
+  const fromRef = useRef(index);
 
   useEffect(() => {
     const track = trackRef.current;
+    const from = fromRef.current;
+    fromRef.current = index;
     if (!track) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    track.scrollTo({
-      left: index * track.clientWidth,
-      behavior: reduce ? "auto" : "smooth",
-    });
-  }, [index]);
+    moveTrack(track, from, index, count);
+  }, [index, count]);
 
   const handleScroll = () => {
     window.clearTimeout(settleRef.current);
     settleRef.current = window.setTimeout(() => {
       const track = trackRef.current;
       if (!track) return;
-      const settled = Math.round(track.scrollLeft / track.clientWidth);
-      if (settled !== index) goTo(settled);
+      const settled = Math.round(track.scrollLeft / getTrackStep(track));
+      if (settled >= count) track.scrollTo({ left: 0, behavior: "instant" });
+      const real = settled % count;
+      if (real !== index) goTo(real);
     }, 120);
   };
 
@@ -49,7 +51,7 @@ export function FeaturedCarousel() {
       <div
         ref={trackRef}
         onScroll={handleScroll}
-        className="flex overflow-x-auto snap-x snap-mandatory rounded-[10px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex gap-4 md:gap-5 overflow-x-auto snap-x snap-mandatory rounded-[28px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {CAROUSEL_PROJECTS.map((project, i) => (
           <CarouselSlide
@@ -59,6 +61,13 @@ export function FeaturedCarousel() {
             total={count}
           />
         ))}
+        <div aria-hidden inert className="flex w-full shrink-0 snap-start">
+          <CarouselSlide
+            project={CAROUSEL_PROJECTS[0]}
+            index={0}
+            total={count}
+          />
+        </div>
       </div>
       <CarouselControls
         count={count}
