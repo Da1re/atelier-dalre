@@ -10,13 +10,13 @@ import { useEffect, useState } from "react";
 const getLineClass = (type: LineType) => {
   switch (type) {
     case "command":
-      return "text-gray-100";
+      return "text-[#fcf5ef]";
     case "json":
       return "text-[#79c0ff]";
     case "git":
-      return "text-[#e3b341]";
+      return "text-[#d9c28a]";
     case "success":
-      return "text-[#28c840]";
+      return "text-[#8fbf78]";
     default:
       return "text-gray-400";
   }
@@ -70,9 +70,9 @@ export const TerminalAnimation = () => {
 
   return (
     <div
-      className="w-full rounded-[18px] overflow-hidden bg-[#1a1a1a] dark:bg-[#0d0d0d]"
+      className="w-full rounded-[18px] overflow-hidden bg-ink"
       style={{
-        boxShadow: "0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1)",
+        boxShadow: "0 30px 60px -20px rgba(20,26,16,0.45), 0 0 0 1px rgba(252,245,239,0.08)",
       }}
     >
       {/* 타이틀바 — 글래스 */}
@@ -97,14 +97,14 @@ export const TerminalAnimation = () => {
           <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
           <span className="w-3 h-3 rounded-full bg-[#28c840]" />
         </div>
-        <span className="flex-1 text-center text-xs text-gray-500 font-mono">
+        <span className="flex-1 text-center text-xs text-[#fcf5ef]/45 font-mono">
           dalre — zsh
         </span>
         <div className="w-16 shrink-0" />
       </div>
 
       {/* 터미널 바디 */}
-      <div className="p-6 font-mono text-sm leading-[1.8] min-h-105 text-gray-300">
+      <div className="p-6 font-mono text-sm leading-[1.8] min-h-105 text-[#e8e2d4]">
         {displayedLines.map((line, i) => (
           <div key={i} className={getLineClass(line.type)}>
             {line.text || " "}
@@ -119,7 +119,7 @@ export const TerminalAnimation = () => {
         {currentLine >= TERMINAL_LINES.length && (
           <>
             <span
-              className={`text-[#28c840] ${showCursor ? "opacity-100" : "opacity-0"}`}
+              className={`text-[#8fbf78] ${showCursor ? "opacity-100" : "opacity-0"}`}
             >
               ▋
             </span>
@@ -135,7 +135,7 @@ export const TerminalAnimation = () => {
                   animation: "shimmer 4.5s linear infinite",
                 }}
               >
-                click ● to replay (red dot)
+                click the red dot to replay
               </span>
             </div>
           </>
