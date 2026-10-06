@@ -26,7 +26,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const comp = getComponentBySlug(slug);
   if (!comp) return { title: "Design System | Dalre" };
-  return { title: `${comp.name} | Design System`, description: comp.desc };
+  return {
+    title: `${comp.name} · Design System | Dalre`,
+    description: comp.desc,
+  };
 }
 
 const toAdjacent = (slug: string, offset: number) => {

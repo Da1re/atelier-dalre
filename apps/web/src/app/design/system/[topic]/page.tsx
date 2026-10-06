@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const found = getTopicBySlug(topic);
   if (!found) return { title: "Design System | Dalre" };
   return {
-    title: `${found.title} | Design System`,
+    title: `${found.title} · Design System | Dalre`,
     description: found.summary,
   };
 }

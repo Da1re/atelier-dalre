@@ -2,13 +2,13 @@ import {
   COMPONENT_GROUPS,
   type ComponentBadge,
 } from "@/models/design-system-data";
-import clsx from "clsx";
 import { ComponentCard } from "./component-card";
-import { BADGE_DOT_CLASS, BADGE_LABEL } from "./status-badge";
+import { BADGE_LABEL, BadgeDot } from "./status-badge";
 
 const LEGEND: ComponentBadge[] = [
   "original",
   "migrated",
+  "polished",
   "retired",
   "deprecated",
 ];
@@ -26,9 +26,7 @@ export function ComponentCatalog() {
               key={kind}
               className="inline-flex items-center gap-2 text-xs text-foreground/50"
             >
-              <span
-                className={clsx("w-2 h-2 rounded-full", BADGE_DOT_CLASS[kind])}
-              />
+              <BadgeDot kind={kind} size="md" />
               {BADGE_LABEL[kind]}
             </li>
           ))}

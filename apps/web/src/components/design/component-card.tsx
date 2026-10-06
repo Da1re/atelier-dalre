@@ -5,7 +5,7 @@ import {
 } from "@/models/design-system-data";
 import clsx from "clsx";
 import Link from "next/link";
-import { BADGE_DOT_CLASS } from "./status-badge";
+import { BadgeDot } from "./status-badge";
 
 interface ComponentCardProps {
   component: DesignComponent;
@@ -18,6 +18,8 @@ const CARD_CLASS: Record<CardTone, string> = {
     "border-primary/25 bg-primary/3 hover:border-primary/50 hover:bg-primary/6",
   migrated:
     "border-foreground/15 bg-foreground/3 hover:border-foreground/30 hover:bg-foreground/5",
+  polished:
+    "border-foreground/10 hover:border-foreground/25 hover:bg-foreground/3",
   retired:
     "border-dashed border-foreground/15 opacity-60 hover:opacity-100 hover:border-foreground/30",
   deprecated: "border-amber-500/25 bg-amber-500/3 hover:border-amber-500/50",
@@ -27,6 +29,7 @@ const CARD_CLASS: Record<CardTone, string> = {
 const NAME_CLASS: Record<CardTone, string> = {
   original: "text-primary",
   migrated: "text-foreground/80",
+  polished: "text-foreground/75",
   retired: "text-foreground/60 line-through decoration-foreground/30",
   deprecated: "text-foreground/80",
   plain: "text-foreground group-hover:text-foreground/70",
@@ -48,10 +51,7 @@ export function ComponentCard({ component }: ComponentCardProps) {
     >
       <span className="absolute top-3.5 right-3.5 flex gap-1.5">
         {badges.map((b) => (
-          <span
-            key={b}
-            className={clsx("w-1.5 h-1.5 rounded-full", BADGE_DOT_CLASS[b])}
-          />
+          <BadgeDot key={b} kind={b} />
         ))}
       </span>
       <p

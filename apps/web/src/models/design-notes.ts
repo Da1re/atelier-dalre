@@ -1,6 +1,5 @@
 import type { DesignNote } from "./design-system-docs";
 
-// 컴포넌트별 설계 노트 — 사내 디자인시스템 실제 구현 기반.
 // mine(직접 구현)은 기능·타입·상태 설계 중심, migrated(마이그레이션)는 정규화·호환 중심.
 export const DESIGN_NOTES: Record<string, DesignNote[]> = {
   // ─── Typography ─────────────────────────────────────────
@@ -198,7 +197,7 @@ export const DESIGN_NOTES: Record<string, DesignNote[]> = {
     },
     {
       title: "정리되지 않은 흔적과 통합 방향",
-      body: "구버전에는 다듬어지지 않은 디버그 코드가 일부 남아 있었고, 신버전은 이를 제거하고 검증 훅·유틸을 Custom 접두사 없는 공용 모듈로 일원화했다. CustomDatePicker는 Calendar 계열 파생 컴포넌트와 함께 신 DatePicker로 수렴되면서 사실상 마이그레이션 원본 역할을 했다.",
+      body: "신버전에서는 검증 훅·유틸을 Custom 접두사 없는 공용 모듈로 일원화했다. CustomDatePicker는 Calendar 계열 파생 컴포넌트와 함께 신 DatePicker로 수렴되면서 사실상 마이그레이션 원본 역할을 했다.",
     },
   ],
 
@@ -241,16 +240,8 @@ export const DESIGN_NOTES: Record<string, DesignNote[]> = {
   ],
   breadcrumb: [
     {
-      title: "데이터 기반 단순 API로 정리",
-      body: "items 배열과 onItemClick 콜백만 받는 단순 API로 정리했다. 클릭 시 onItemClick?.(item.value)와 item.onClick?.()을 함께 호출해 전역 핸들러와 항목별 핸들러를 둘 다 지원했다. 첫 항목에만 HomeIcon, 두 번째 이후에만 ChevronRight를 렌더링해 구분자 마크업을 데이터에서 분리했다.",
-    },
-    {
-      title: "타이포 토큰 정합",
-      body: "텍스트 렌더링을 공통 Label 컴포넌트에 위임해 디자인시스템 타이포 토큰과 정합을 맞추고, 라벨에 tabIndex={0}을 부여해 키보드 포커스를 받게 했다.",
-    },
-    {
-      title: "모바일 말줄임과 접근성",
-      body: "useIsMobile 훅으로 모바일 여부를 판단해, 모바일이면서 label이 4자를 넘는 항목은 앞 4자 + '...'로 잘라 표시하고 원본 라벨은 title 속성으로 보존했다. nav에 aria-label='브레드크럼', 장식 아이콘에는 aria-hidden을 부여했다.",
+      title: "아이콘 교체",
+      body: "v2.0 작업에서 이 컴포넌트는 legacy 아이콘을 MUI 아이콘으로 바꿨다.",
     },
   ],
   pagination: [
@@ -272,7 +263,7 @@ export const DESIGN_NOTES: Record<string, DesignNote[]> = {
   icon: [
     {
       title: "단일 진입점으로 모은 아이콘 시스템",
-      body: "수백 개의 SVG 자산을 단일 icon prop으로 끌어 쓰는 통합 진입점을 만들었다. icon.import.ts에서 자산들을 ICON_IMPORT_CONFIG 객체로 등록하고, 그 키 타입을 IconType = keyof typeof ICON_IMPORT_CONFIG로 뽑아 사용처에서 자동완성과 오타 방지를 받게 했다.",
+      body: "수백 개의 SVG 자산을 단일 icon prop으로 끌어 쓰는 통합 진입점을 만들었다. 자산들을 하나의 설정 객체에 등록하고 그 키를 아이콘 타입으로 뽑아, 사용처에서 자동완성과 오타 방지를 받게 했다.",
     },
     {
       title: "색 제어 방식에 따른 분류",
@@ -302,7 +293,7 @@ export const DESIGN_NOTES: Record<string, DesignNote[]> = {
     },
     {
       title: "판별 유니온과 점진적 폐기",
-      body: "props 타입을 ModernProps | LegacySolidProps | LegacySoftProps 유니온으로 구성해 appearance 유무에 따라 허용 variant가 달라지도록 했다. legacy 타입에 @deprecated와 'Phase D 제거 예정' 주석을 달아 폐기 경로를 문서화했고, icon prop은 'alert'|'check'|'x' 단축키를 내부 Icon으로 매핑하되 그 외 ReactNode는 그대로 렌더하도록 열어뒀다.",
+      body: "props 타입을 ModernProps | LegacySolidProps | LegacySoftProps 유니온으로 구성해 appearance 유무에 따라 허용 variant가 달라지도록 했다. legacy 타입에 @deprecated를 달아 폐기 경로를 문서화했고, icon prop은 'alert'|'check'|'x' 단축키를 내부 Icon으로 매핑하되 그 외 ReactNode는 그대로 렌더하도록 열어뒀다.",
     },
   ],
   tag: [
@@ -321,16 +312,8 @@ export const DESIGN_NOTES: Record<string, DesignNote[]> = {
   ],
   carousel: [
     {
-      title: "자료형 독립 인덱스 컨트롤러",
-      body: "제네릭 <T>로 dataList: T[]를 받아 자료형에 독립적인 인덱스 컨트롤러로 만들고, currentIndex를 내부 state로 관리하면서 변경 시 onChange(index)로 외부에 알리는 구조로 정리했다. 현재 위치는 currentPage/totalPages로 표기했다.",
-    },
-    {
-      title: "초기 인덱스 동기화와 빈 데이터 처리",
-      body: "initialIndex로 초기 위치를 지정하고 useEffect로 변경을 감지해 currentIndex를 재동기화했다. dataList.length === 0이면 null을 반환해 빈 데이터에서 안전하게 빠지도록 했다.",
-    },
-    {
-      title: "접근성",
-      body: "이전/다음을 네이티브 button으로 두고 aria-label을 '이전'·'다음'으로 부여했다. 경계에서 isPrevDisabled(0)·isNextDisabled(마지막)를 계산해 disabled와 OR로 묶었고, 내부 화살표 아이콘에는 aria-hidden을 줘 스크린리더 중복 읽기를 막았다.",
+      title: "아이콘 정렬 보정",
+      body: "v2.0 작업에서 24px 아이콘 정렬을 보정하고, legacy 아이콘을 MUI 아이콘으로 바꿨다.",
     },
   ],
 
@@ -369,26 +352,14 @@ export const DESIGN_NOTES: Record<string, DesignNote[]> = {
   ],
   "step-indicator": [
     {
-      title: "인덱스 기반 상태 계산 일원화",
-      body: "각 단계 상태를 currentStepIndex와의 비교만으로 completion/ongoing/before로 파생시켜, 단계마다 상태를 따로 들고 있던 legacy 구조를 단일 계산식으로 정규화했다. 상태에 따라 완료(CheckIcon)·진행·예정 아이콘을 분기 렌더링한다.",
-    },
-    {
-      title: "line/box 두 variant와 구분자 처리",
-      body: "variant를 'line'/'box'로 받아 컨테이너 클래스를 결정하고, box 변형에서만 단계 사이에 ChevronRightIcon을 삽입했다. align('left'/'center')으로 정렬을 옵션화해 화면별로 달랐던 표현을 prop으로 흡수했다.",
-    },
-    {
-      title: "접근성과 선택적 인터랙션",
-      body: "ol/li 시맨틱 위에 진행 단계 aria-label, ongoing 항목의 aria-current='step', before 항목의 aria-disabled를 부여했다. onClickStep으로 단계 클릭 이동을 옵션 제공하되, focusable prop으로 tabIndex를 토글해 키보드 포커스 진입 여부를 호출부가 정하게 했다.",
+      title: "단계 아이콘 교체와 정렬 보정",
+      body: "v2.0 작업에서 단계 아이콘을 커스텀 SVG로 바꾸고 정렬을 보정했다.",
     },
   ],
   "search-box": [
     {
-      title: "합성 컴포넌트 구조로 재정의",
-      body: "SearchBox.Row, SearchBox.Column 정적 프로퍼티를 가진 합성 컴포넌트로 정규화해, 검색 조건 영역을 행·열 조합으로 자유롭게 구성하도록 했다. 루트는 form(role='search')으로 감싸 onSubmit에서 preventDefault 후 onSearch를 호출하고, 초기화/검색 버튼을 고정 배치했다.",
-    },
-    {
-      title: "라벨-입력 연결 자동화",
-      body: "Column이 useId로 생성한 id를 React.Children.map으로 첫 번째 자식에만 cloneElement로 주입하고, 동일 id를 Label에 연결해 label-control 연결을 자동화했다. 호출부에서 id를 수동으로 맞추던 작업을 흡수해 접근성 연결을 일관되게 보장했다.",
+      title: "아이콘 교체",
+      body: "v2.0 작업에서 이 컴포넌트는 legacy 아이콘을 MUI 아이콘으로 바꿨다.",
     },
   ],
 
@@ -417,12 +388,8 @@ export const DESIGN_NOTES: Record<string, DesignNote[]> = {
   ],
   alert: [
     {
-      title: "variant 기반 매핑 테이블로 정규화",
-      body: "danger/warning/success/information/secondary 다섯 variant를 VARIANT_CLASS_MAP·VARIANT_PRIMARY_COLOR_MAP·ICON_COMPONENT_MAP 세 테이블로 정리해, 분기문 없이 variant 한 값으로 클래스·강조색·아이콘을 동시에 결정하도록 정규화했다. 색상은 디자인 토큰 CSS 변수로 통일했다.",
-    },
-    {
-      title: "아이콘 override와 레이아웃 분기",
-      body: "icon prop으로 variant와 다른 아이콘 계열을 따로 지정할 수 있게 해(ICON_COMPONENT_MAP[icon ?? variant]) 의미색과 아이콘을 분리했다. description은 title 유무에 따라 들여쓰기 클래스를 바꿔 아이콘 정렬을 맞췄고, 아이콘에 aria-hidden을 줘 장식 요소로 처리했다.",
+      title: "색 토큰 정합과 InfoBox 통합",
+      body: "v2.0 작업에서 아이콘과 description 색을 디자인 토큰에 맞추고 legacy 아이콘을 MUI 아이콘으로 바꿨다. 이후 패키지화 단계에서 InfoBox로 통합하고 Alert는 deprecated 별칭으로 남겼다.",
     },
   ],
   "toast-bar": [
@@ -441,16 +408,8 @@ export const DESIGN_NOTES: Record<string, DesignNote[]> = {
   ],
   tooltip: [
     {
-      title: "용도별로 CSS 툴팁과 MUI 툴팁을 분리 제공",
-      body: "순수 CSS 기반 Tooltip(hover로 visible 토글, useId로 aria-describedby 연결)과 MUI를 styled로 감싼 HoverTooltip/ClickTooltip을 한 디렉토리에 정리했다. 단순 hover 안내는 위치 계산 없이 CSS placement 클래스로 처리하고, 위치 자동 계산이나 click 제어가 필요하면 MUI의 popper 엔진을 재사용하도록 역할을 나눴다.",
-    },
-    {
-      title: "placement 정규화와 외부 제어 레지스트리",
-      body: "내부 표기(top-left, bottom-center 등 12종)를 positionMap으로 MUI placement로 일관 변환했다. ClickTooltip은 모듈 스코프 Map에 id별 setOpen을 등록해 openTooltipById/closeTooltipById/popAllTooltip 같은 외부 명령형 제어를 지원하고, 언마운트 시 레지스트리에서 정리했다.",
-    },
-    {
-      title: "클릭 툴팁의 닫힘과 접근성 보강",
-      body: "ClickTooltip은 Escape·closeOnClickOutside(바깥 mousedown)·valid 플래그로 닫힘 조건을 분기하고, 닫힐 때 트리거 버튼에 포커스를 복귀시켰다. 트리거를 valid일 때 div, 아닐 때 button으로 렌더해 aria-expanded와 role='dialog' 콘텐츠를 연결하는 등 접근성을 보강했다.",
+      title: "Close 버튼 제거",
+      body: "v2.0 작업에서 Close 버튼을 없애 호버만으로 닫히게 바꾸고, legacy 아이콘을 MUI 아이콘으로 바꿨다.",
     },
   ],
   accordion: [
