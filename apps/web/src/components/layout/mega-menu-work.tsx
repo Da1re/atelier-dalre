@@ -8,11 +8,9 @@ interface Props {
   onItemClick: () => void;
 }
 
-const PREVIEW_SLUGS = ["gwacheon-science", "sports-safety", "incheon-education"];
-
-const PREVIEW_PROJECTS: Project[] = PREVIEW_SLUGS.map((slug) =>
-  PROJECTS.find((p) => p.slug === slug),
-).filter((p): p is Project => !!p);
+const PREVIEW_PROJECTS: Project[] = PROJECTS.filter(
+  (project) => project.starred,
+).slice(0, 3);
 
 export const MegaMenuWork = ({ onItemClick }: Props) => {
   return (

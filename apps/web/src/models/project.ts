@@ -33,4 +33,5 @@ export interface Project {
   relatedLinks?: ProjectLink[]
   tag: string
   heroBadge?: string
+  starred?: boolean
 }
