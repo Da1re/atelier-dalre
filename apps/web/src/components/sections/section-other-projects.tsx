@@ -8,30 +8,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const OTHER_PROJECTS = [
   {
-    title: "Web UI/UX",
-    type: "User Activity",
-    year: "2023",
-    imgSrc: "/images/projects/img0.png",
-  },
-  {
-    title: "Web UI/UX",
-    type: "Team Activity",
-    year: "2023",
-    imgSrc: "/images/projects/img1.png",
-  },
-  {
-    title: "Web UI/UX",
-    type: "Payment details",
-    year: "2023",
-    imgSrc: "/images/projects/img2.png",
-  },
-  {
-    title: "Web UI/UX",
-    type: "Account Setting",
-    year: "2023",
-    imgSrc: "/images/projects/img3.png",
-  },
-  {
     title: "Logo",
     type: "Platform Circle Logo",
     year: "2023",
@@ -104,10 +80,10 @@ export const SectionOtherProjects = () => {
     <section className="bg-foreground/5 text-foreground rounded-2xl flex flex-col gap-8 md:gap-12 px-5 md:px-12.5 py-8 md:py-12.5">
       <div>
         <h2 className="uppercase font-normal tracking-[-3px] md:tracking-[-5px]" style={{ fontSize: "clamp(48px, 12vw, 100px)" }}>
-          Design Works
+          Archive
         </h2>
         <p className="text-sm text-foreground/50 mt-2">
-          2023 · 개발 전 단계에서 직접 잡았던 UI/UX 시안과 로고 작업
+          직접 디자인한 로고
         </p>
       </div>
 
@@ -120,8 +96,10 @@ export const SectionOtherProjects = () => {
             <h3 className="font-normal tracking-[-0.5px] md:tracking-[-1px]" style={{ fontSize: "clamp(22px, 6vw, 40px)" }}>
               {project.title}
             </h3>
-            <p className="self-center text-xs md:text-base text-foreground/60 hidden sm:block">{project.type}</p>
-            <p className="self-center text-xs md:text-base shrink-0">{project.year}</p>
+            <div className="flex items-center gap-6 md:gap-10 shrink-0">
+              <p className="text-xs md:text-base text-foreground/60 hidden sm:block">{project.type}</p>
+              <p className="text-xs md:text-base">{project.year}</p>
+            </div>
           </li>
         ))}
       </ul>
