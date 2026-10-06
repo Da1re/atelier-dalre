@@ -5,11 +5,16 @@ export const SKILLS = [
   },
   {
     category: "State & Data",
-    items: ["Jotai", "React Query", "Zustand"],
+    items: ["Zustand", "Jotai", "React Query", "React Hook Form"],
   },
   {
     category: "Styling",
-    items: ["Tailwind CSS", "CSS Modules", "Styled Components"],
+    items: [
+      "Tailwind CSS",
+      "CSS Modules",
+      "Styled Components",
+      "CSS Cascade Layers",
+    ],
   },
   {
     category: "Architecture",
@@ -17,11 +22,11 @@ export const SKILLS = [
   },
   {
     category: "Tooling",
-    items: ["Git", "Figma", "Storybook"],
+    items: ["Git", "Figma", "Storybook", "GitLab CI"],
   },
   {
     category: "Etc",
-    items: ["WebRTC", "SSE"],
+    items: ["WebSocket", "SSE"],
   },
 ];
 
@@ -30,7 +35,7 @@ export const CAREER = [
     company: "(주)세이코어",
     role: "Frontend Developer",
     period: "2024.11 ~ 현재",
-    desc: "공공·엔터프라이즈 포털 FE 개발. 디자인 시스템, Module Federation 에디터 패키지, WebRTC 화상회의 SDK 통합 등 담당.",
+    desc: "공공·엔터프라이즈 포털 FE 개발. 포털 모노레포 공통 모듈(Module Federation 에디터·통합검색), 역할 기반 인증 구조, 공용 디자인시스템 개편과 설치형 패키지화, 폐쇄망 배포 표준화.",
   },
   {
     company: "(주)인더스웰",
@@ -49,7 +54,7 @@ export const CERTIFICATIONS = [
   },
   {
     name: "SQL개발자 (SQLD)",
-    issuer: "한국데이터베이스진흥센터",
+    issuer: "한국데이터산업진흥원",
     date: "2024.09",
     pinned: true,
   },
@@ -73,7 +78,7 @@ export const CERTIFICATIONS = [
   },
   {
     name: "AIBT (AI 비즈니스 활용능력) 2급",
-    issuer: "한국생산성본부",
+    issuer: "한국생산성본부·매일경제신문",
     date: "2026.01",
     pinned: false,
   },
@@ -83,22 +88,22 @@ export const EDUCATION = [
   {
     school: "한양대학교 공학대학원",
     major: "컴퓨터 공학",
-    degree: "석사",
-    period: "2025. 03 ~ 재학 중",
+    degree: "석사과정",
+    period: "2025.03 ~ 재학 중",
     gpa: null,
   },
   {
-    school: "국가평생교육진흥원",
+    school: "학점은행제",
     major: "컴퓨터 공학",
     degree: "학사 졸업",
-    period: "2023. 07 ~ 2024. 08",
+    period: "2023.03 ~ 2024.08",
     gpa: "4.11 / 4.5",
   },
   {
-    school: "동국대학교 (wise)",
+    school: "동국대학교(WISE)",
     major: "호텔관광경영학부",
-    degree: "학사 중퇴",
-    period: "2015. 03 ~ 자퇴",
-    gpa: "4.07 / 4.5",
+    degree: "중퇴",
+    period: "2015.03 ~",
+    gpa: null,
   },
 ];

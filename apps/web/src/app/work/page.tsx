@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ProjectMark } from "@/components/shared/project-mark";
 import {
   HERO_PROJECT,
   LARGE_PROJECTS,
@@ -22,7 +23,7 @@ const getColors = (project: Project) => {
     : "color-mix(in srgb, var(--foreground) 40%, transparent)";
   const tagBg = isDark
     ? "rgba(255,255,255,0.15)"
-    : "color-mix(in srgb, white 60%, transparent)";
+    : "color-mix(in srgb, var(--background) 85%, transparent)";
   return { isDark, fg, fgMuted, fgSubtle, tagBg };
 };
 
@@ -70,7 +71,7 @@ export default function WorkPage() {
                   </span>
                   <div className="flex flex-wrap gap-2 mt-2">
                     {HERO_PROJECT.status === "in-progress" && (
-                      <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-primary text-white">
+                      <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-primary text-background">
                         진행중
                       </span>
                     )}
@@ -179,7 +180,7 @@ export default function WorkPage() {
                         {project.tag}
                       </span>
                       {project.status === "in-progress" && (
-                        <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-primary text-white">
+                        <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-primary text-background">
                           진행중
                         </span>
                       )}
@@ -258,18 +259,10 @@ export default function WorkPage() {
                 className="group flex items-center justify-between py-6 px-2 hover:px-4 hover:bg-foreground/3 transition-all rounded-lg"
               >
                 <div className="flex items-center gap-6">
-                  <span className="text-sm text-foreground/20 font-mono w-7">
+                  <span className="text-sm text-foreground/55 font-mono w-7 shrink-0">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span
-                    className="w-2 h-2 rounded-full shrink-0"
-                    style={{
-                      backgroundColor:
-                        project.status === "in-progress"
-                          ? project.accentColor
-                          : "transparent",
-                    }}
-                  />
+                  <ProjectMark starred={project.starred} />
                   <div>
                     <h3 className="text-xl font-normal text-foreground tracking-[-0.5px]">
                       {project.title}
@@ -285,9 +278,6 @@ export default function WorkPage() {
                   </span>
                   <span className="text-xs text-foreground/40 hidden md:block">
                     {project.period}
-                  </span>
-                  <span className="text-xs font-semibold text-foreground/40">
-                    기여도 {project.contribution}
                   </span>
                   <span className="text-base text-foreground/30 group-hover:translate-x-1 transition-transform">
                     →

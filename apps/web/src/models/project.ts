@@ -7,6 +7,11 @@ export interface ProjectHighlight {
   description: string
 }
 
+export interface ProjectLink {
+  label: string
+  href: string
+}
+
 export interface Project {
   slug: string
   title: string
@@ -25,6 +30,8 @@ export interface Project {
   accentColor: string
   textColor?: string
   siteUrl?: string
+  relatedLinks?: ProjectLink[]
   tag: string
   heroBadge?: string
+  starred?: boolean
 }

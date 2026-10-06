@@ -1,21 +1,15 @@
-import { SectionAbout } from "@/components/sections/section-about";
-import { SectionCreation } from "@/components/sections/section-creation";
 import { SectionDesign } from "@/components/sections/section-design";
+import { SectionHero } from "@/components/sections/section-hero/section-hero";
 import { SectionIn } from "@/components/sections/section-in";
-import { SectionOtherProjects } from "@/components/sections/section-other-projects";
-import { SectionVisual } from "@/components/sections/section-visual";
 import { SectionWork } from "@/components/sections/section-work";
 
 export default function MainPage() {
   return (
-    <div className="flex flex-col px-3 py-5 md:p-10 gap-14 md:gap-24 w-full">
-      <SectionVisual />
-      <SectionAbout />
+    <div className="flex flex-col px-3 pt-24 pb-5 md:px-10 md:pt-28 md:pb-10 gap-14 md:gap-24 w-full">
+      <SectionHero />
       <SectionIn />
-      <SectionWork />
       <SectionDesign />
-      <SectionCreation />
-      <SectionOtherProjects />
+      <SectionWork />
     </div>
   );
 }

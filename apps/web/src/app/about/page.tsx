@@ -1,3 +1,4 @@
+import { SectionOtherProjects } from "@/components/sections/section-other-projects";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { CAREER, CERTIFICATIONS, EDUCATION, SKILLS } from "./models";
@@ -31,8 +32,7 @@ export default function AboutPage() {
             이유입니다.
           </p>
           <p className="text-base text-foreground/60 leading-[1.8]">
-            좋은 UI는 좋은 DX에서 나온다고 생각합니다. 공통 컴포넌트와
-            아키텍처를 설계해 팀 전체가 편하게 일할 수 있는 환경을 만드는 데
+            공통 컴포넌트와 아키텍처를 설계해 팀 전체가 편하게 일할 수 있는 환경을 만드는 데
             관심이 많습니다.
           </p>
         </div>
@@ -111,6 +111,7 @@ export default function AboutPage() {
                       alt="pinned"
                       width={16}
                       height={16}
+                      className="w-4 h-4"
                     />
                   )}
                 </span>
@@ -134,13 +135,13 @@ export default function AboutPage() {
       </div>
 
       {/* 학력 */}
-      <div>
+      <div className="mb-20">
         <div className="flex items-center gap-4 mb-8">
           <h2 className="text-[13px] font-semibold tracking-[3px] text-foreground/40 uppercase">
             Education
           </h2>
           <span className="text-[12px] font-semibold px-3 py-1 rounded-full border border-foreground/20 text-foreground/60">
-            대학원(석사) 재학중
+            대학원(석사) 재학 중
           </span>
         </div>
         <ul className="border-t border-foreground/10">
@@ -169,6 +170,8 @@ export default function AboutPage() {
           ))}
         </ul>
       </div>
+
+      <SectionOtherProjects />
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { AsteriskMark } from '@/components/shared/asterisk-mark'
 import { PROJECTS } from '@/models/project-data'
+import { RelatedLinks } from './related-links'
 import { RetrospectiveBody } from './retrospective-body'
 
 export function generateStaticParams() {
@@ -9,6 +11,13 @@ export function generateStaticParams() {
 
 interface Props {
   params: Promise<{ slug: string }>
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { slug } = await params
+  const project = PROJECTS.find((p) => p.slug === slug)
+  if (!project) return { title: 'Work | Dalre' }
+  return { title: `${project.title} | Dalre`, description: project.subtitle }
 }
 
 export default async function WorkDetailPage({ params }: Props) {
@@ -44,7 +53,7 @@ export default async function WorkDetailPage({ params }: Props) {
                 {project.tag}
               </span>
               {project.status === 'in-progress' && (
-                <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-primary text-white">
+                <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-primary text-background">
                   진행중
                 </span>
               )}
@@ -73,7 +82,7 @@ export default async function WorkDetailPage({ params }: Props) {
             </div>
 
             <div
-              className="flex gap-10 text-sm pt-6"
+              className="flex flex-wrap gap-x-10 gap-y-4 text-sm pt-6"
               style={{ borderTop: `1px solid ${borderColor}`, color: fgMuted }}
             >
               <div>
@@ -85,7 +94,7 @@ export default async function WorkDetailPage({ params }: Props) {
                 <span className="font-semibold" style={{ color: fg }}>{project.period}</span>
               </div>
               <div>
-                <span className="block text-[11px] tracking-[1px] uppercase mb-1">Contribution</span>
+                <span className="block text-[11px] tracking-[1px] uppercase mb-1">Scope</span>
                 <span className="font-semibold" style={{ color: fg }}>{project.contribution}</span>
               </div>
             </div>
@@ -116,12 +125,9 @@ export default async function WorkDetailPage({ params }: Props) {
           </h2>
           <div className="grid gap-4">
             {project.highlights.map((highlight, i) => (
-              <div key={i} className="p-8 rounded-[10px] bg-white/60 border border-foreground/8">
+              <div key={i} className="p-8 rounded-[10px] bg-white/60 dark:bg-foreground/5 border border-foreground/8">
                 <div className="flex items-start gap-4">
-                  <span
-                    className="w-1.5 h-1.5 rounded-full shrink-0 mt-2"
-                    style={{ backgroundColor: project.accentColor }}
-                  />
+                  <AsteriskMark className="mt-2" />
                   <div>
                     <h3 className="text-lg font-semibold text-foreground tracking-[-0.5px] mb-2.5">
                       {highlight.title}
@@ -149,6 +155,8 @@ export default async function WorkDetailPage({ params }: Props) {
           />
         </div>
       )}
+
+      <RelatedLinks links={project.relatedLinks} />
 
       <div className="px-15 border-t border-foreground/10 pt-10">
         <h2 className="text-[13px] font-semibold tracking-[2px] text-foreground/40 uppercase mb-6">
