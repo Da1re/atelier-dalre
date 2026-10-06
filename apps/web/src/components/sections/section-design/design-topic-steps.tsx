@@ -8,12 +8,12 @@ export function DesignTopicSteps() {
         <li key={topic.slug}>
           <Link
             href={`/design/system/${topic.slug}`}
-            className="group flex items-start gap-4 py-4 px-2 hover:px-4 hover:bg-foreground/3 rounded-lg transition-all"
+            className="group flex items-start gap-4 py-4 px-2 hover:bg-foreground/3 rounded-lg transition-colors cursor-pointer"
           >
-            <span className="text-[11px] font-mono text-foreground/30 pt-1 w-5 shrink-0">
+            <span className="text-[11px] font-mono text-foreground/55 pt-1 w-5 shrink-0">
               {String(i + 1).padStart(2, "0")}
             </span>
-            <div className="min-w-0 flex-1">
+            <div className="min-w-0 flex-1 transition-transform group-hover:translate-x-1">
               <p className="text-[10px] font-semibold tracking-[2px] uppercase text-primary mb-1">
                 {topic.eyebrow}
               </p>
@@ -24,7 +24,7 @@ export function DesignTopicSteps() {
                 {topic.summary}
               </p>
             </div>
-            <span className="text-sm text-foreground/30 pt-1 group-hover:translate-x-1 transition-transform">
+            <span className="text-sm text-foreground/55 pt-1 group-hover:translate-x-1 transition-transform">
               →
             </span>
           </Link>

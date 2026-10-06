@@ -60,7 +60,7 @@ export function CarouselControls({
   const dots = Array.from({ length: count }, (_, i) => i);
 
   return (
-    <div className="flex items-center justify-between mt-5">
+    <div className="flex items-center justify-center md:justify-between mt-5">
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-2.5 px-4 h-11 rounded-full bg-foreground/8">
           {dots.map((i) => {
