@@ -22,18 +22,17 @@ export default function AboutPage() {
         <div className="max-w-2xl">
           <p className="text-xl text-foreground leading-[1.7] mb-4">
             <span className="text-primary font-semibold">
-              복잡한 걸 단순하게, 단순한 걸 아름답게 만드는 FE 개발자
+              디자인 시스템과 공통 모듈을 만들고 운영하는 FE 개발자
             </span>
             입니다.
           </p>
           <p className="text-base text-foreground/60 leading-[1.8] mb-4">
-            복잡한 구조를 정리하고, 그게 화면에 구현되는 순간이 좋습니다.
-            프론트엔드를 선택한 이유도 그렇고, 지금도 개발을 계속하게 만드는
-            이유입니다.
+            레포마다 복사돼 갈라지던 사내 디자인 시스템을 설치형 패키지로 분리해 버전을
+            관리하고, 실제 프로젝트를 그 패키지로 옮기는 작업까지 진행했습니다.
           </p>
           <p className="text-base text-foreground/60 leading-[1.8]">
-            공통 컴포넌트와 아키텍처를 설계해 팀 전체가 편하게 일할 수 있는 환경을 만드는 데
-            관심이 많습니다.
+            공공기관 포털에서는 공통 에디터 패키지, 역할 기반 인증 구조, 동적 메뉴
+            시스템처럼 여러 화면이 함께 쓰는 모듈을 맡았습니다.
           </p>
         </div>
       </div>
