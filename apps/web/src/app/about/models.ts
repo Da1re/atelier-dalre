@@ -1,24 +1,19 @@
 export const SKILLS = [
   {
     category: "Core",
-    items: ["React", "TypeScript", "Next.js", "JavaScript"],
+    items: ["React", "TypeScript", "Next.js", "JavaScript", "HTML·CSS"],
   },
   {
     category: "State & Data",
-    items: ["Zustand", "Jotai", "React Query", "React Hook Form"],
+    items: ["Zustand", "Jotai", "React Query", "React Hook Form", "REST API"],
   },
   {
     category: "Styling",
-    items: [
-      "Tailwind CSS",
-      "CSS Modules",
-      "Styled Components",
-      "CSS Cascade Layers",
-    ],
+    items: ["Tailwind CSS", "CSS Cascade Layers"],
   },
   {
     category: "Architecture",
-    items: ["Turborepo", "Webpack Module Federation", "pnpm", "Monorepo"],
+    items: ["Turborepo", "Webpack Module Federation", "pnpm", "Vite"],
   },
   {
     category: "Tooling",
@@ -26,7 +21,7 @@ export const SKILLS = [
   },
   {
     category: "Etc",
-    items: ["WebSocket", "SSE"],
+    items: ["WebSocket", "SSE", "i18n", "KWCAG 2.2"],
   },
 ];
 
@@ -35,7 +30,7 @@ export const CAREER = [
     company: "(주)세이코어",
     role: "Frontend Developer",
     period: "2024.11 ~ 현재",
-    desc: "공공·엔터프라이즈 포털 FE 개발. 포털 모노레포 공통 모듈(Module Federation 에디터·통합검색), 역할 기반 인증 구조, 공용 디자인시스템 개편과 설치형 패키지화, 폐쇄망 배포 표준화.",
+    desc: "공공기관 포털과 자사 솔루션 FE 개발. 사내 디자인시스템을 설치형 패키지로 분리해 운영하고 실제 프로젝트를 전환했으며, 포털에서는 공통 에디터 패키지·역할 기반 인증 구조·동적 메뉴 시스템 같은 공통 모듈을 맡음.",
   },
   {
     company: "(주)인더스웰",
